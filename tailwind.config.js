@@ -6,7 +6,19 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: "#00d8ff",
+        "secondary-dark": "#272932",
+        "primary-dark": "#2b2d42",
+        "body-dark": "#242938",
+        gray: { DEFAULT: "#394E6A", dark: "#414558" },
+        light: "#edf2f4",
+      },
+    },
+    fontFamily: {
+      display: ["Poppins", "sans-serif"],
+    },
   },
   plugins: [],
 };

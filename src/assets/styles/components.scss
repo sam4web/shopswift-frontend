@@ -1,0 +1,78 @@
+.line-break {
+  @apply h-[1px] my-4 bg-gray-200 border-0 dark:bg-gray-700 rounded-full;
+}
+
+.section-container {
+  @apply max-w-7xl w-full mx-auto px-4 lg:px-12 my-6 py-3 lg:my-11 lg:py-10;
+}
+
+.btn {
+  @apply text-base text-light font-medium px-3 md:px-5 py-2 md:py-3 rounded-md border-2 transition hover:text-secondary-dark hover:bg-transparent dark:hover:text-light shadow-md;
+}
+
+.btn-primary {
+  @apply btn bg-primary border-primary text-body-dark;
+}
+
+.btn-secondary {
+  @apply btn bg-primary-dark border-primary-dark;
+}
+
+.auth-field-wrapper label {
+  @apply input-label;
+}
+
+.auth-field-wrapper input {
+  @apply input-field-lg;
+}
+
+.field-wrapper label {
+  @apply input-label;
+}
+
+.field-wrapper input,
+.field-wrapper select,
+.field-wrapper textarea {
+  @apply input-field-lg;
+}
+
+.field-wrapper textarea {
+  @apply h-44;
+}
+
+.field-wrapper select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
+.input-field {
+  @apply w-full border-2 border-gray-200 outline-none transition dark:border-transparent rounded-md dark:text-light;
+}
+
+.input-field-sm {
+  @apply input-field px-2 py-1 dark:bg-body-dark;
+}
+
+.input-field-lg {
+  @apply input-field px-4 py-3 dark:bg-body-dark;
+}
+
+.input-label {
+  @apply mb-1 inline-block text-gray-dark text-base dark:text-white transition;
+}
+
+.auth-input-field {
+  @apply w-full border-2 border-gray-200 outline-none px-4 py-3 rounded-md;
+}
+
+.auth-input-label {
+  @apply mb-1 inline-block text-gray-dark text-base;
+}
+
+.nav-link {
+  @apply text-secondary-dark dark:text-light font-medium text-sm dark:hover:bg-slate-800 hover:bg-slate-200 hover:shadow-sm px-2.5 py-2 rounded-md w-full cursor-pointer transition capitalize block;
+}
+
+.nav-link__active {
+  @apply text-light dark:bg-gray-dark bg-primary-dark dark:hover:bg-gray-dark hover:bg-primary-dark shadow-sm;
+}
