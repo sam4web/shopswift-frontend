@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 const TopNav = () => {
   return (
     <nav className="bg-secondary-dark dark:bg-gray-dark">
@@ -19,12 +21,12 @@ const TopNav = () => {
           */}
 
           <li>
-            <a href="" className="hover:underline">Sign in</a>
+            <NavLink to="/login" className="hover:underline">Sign in</NavLink>
           </li>
           <li>
-            <a href="" className="hover:underline">
+            <NavLink to="/register" className="hover:underline">
               Create Account
-            </a>
+            </NavLink>
           </li>
         </ul>
       </div>
