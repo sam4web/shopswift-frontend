@@ -1,6 +1,9 @@
 import heroImage from "@/assets/images/hero-image.jpg";
+import useTitle from "@/hooks/useTitle.js";
 
 const Home = () => {
+  useTitle("ShopSwift | Explore Shop Thrive");
+
   return (
     <>
       <section>
@@ -10,7 +13,7 @@ const Home = () => {
               className="space-y-5 md:space-y-3 lg:space-y-5 w-full max-w-md md:max-w-lg"
             >
               <h1
-                className="text-3xl lg:text-[42px] text-gray font-extrabold lg:leading-[1.17] dark:text-light transition"
+                className="text-3xl lg:text-[42px] text-gray font-extrabold lg:leading-[1.17] dark:text-light"
               >
                 Explore. Shop. Thrive. Elevating your lifestyle online.
               </h1>
@@ -34,9 +37,9 @@ const Home = () => {
       </section>
 
 
-      <section className="bg-light dark:bg-primary-dark transition py-1">
+      <section className="bg-light dark:bg-primary-dark py-1">
         <div className="section-container">
-          <h3 className="text-3xl dark:text-light text-body-dark font-medium transition">
+          <h3 className="text-3xl dark:text-light text-body-dark font-medium">
             Feature Products
           </h3>
           <hr className="line-break" />
@@ -54,7 +57,7 @@ const Home = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-11 lg:gap-16">
             <div className="space-y-3">
               <h3
-                className="text-3xl dark:text-light text-secondary-dark font-medium transition"
+                className="text-3xl dark:text-light text-secondary-dark font-medium"
               >
                 Join our newsletter for 20% off
               </h3>

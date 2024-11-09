@@ -7,7 +7,7 @@
 }
 
 .btn {
-  @apply text-base text-light font-medium px-3 md:px-5 py-2 md:py-3 rounded-md border-2 transition hover:text-secondary-dark hover:bg-transparent dark:hover:text-light shadow-md;
+  @apply text-base text-light font-medium px-3 md:px-5 py-2 md:py-3 rounded-md border-2 hover:text-secondary-dark hover:bg-transparent dark:hover:text-light shadow-md;
 }
 
 .btn-primary {
@@ -46,7 +46,7 @@
 }
 
 .input-field {
-  @apply w-full border-2 border-gray-200 outline-none transition dark:border-transparent rounded-md dark:text-light;
+  @apply w-full border-2 border-gray-200 outline-none dark:border-transparent rounded-md dark:text-light;
 }
 
 .input-field-sm {
@@ -58,7 +58,7 @@
 }
 
 .input-label {
-  @apply mb-1 inline-block text-gray-dark text-base dark:text-white transition;
+  @apply mb-1 inline-block text-gray-dark text-base dark:text-white;
 }
 
 .auth-input-field {
@@ -70,9 +70,9 @@
 }
 
 .nav-link {
-  @apply text-secondary-dark dark:text-light font-medium text-sm dark:hover:bg-slate-800 hover:bg-slate-200 hover:shadow-sm px-2.5 py-2 rounded-md w-full cursor-pointer transition capitalize block;
+  @apply text-secondary-dark dark:text-light font-medium text-sm dark:hover:bg-slate-800 hover:bg-slate-200 hover:shadow-sm px-2.5 py-2 rounded-md w-full cursor-pointer capitalize block;
 }
 
-.nav-link__active {
+.nav-link.active {
   @apply text-light dark:bg-gray-dark bg-primary-dark dark:hover:bg-gray-dark hover:bg-primary-dark shadow-sm;
 }

@@ -6,16 +6,17 @@ import NavLinks from "@/components/header/NavLinks.jsx";
 import Sidenav from "@/components/header/Sidenav.jsx";
 import { LuShoppingCart, LuUserCircle2 } from "react-icons/lu";
 import { FaBars } from "react-icons/fa6";
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
   const [showSidenav, setShowSidenav] = useState(false);
   const toggleSidenav = () => setShowSidenav(prev => !prev);
 
   return (
-    <header className="dark:bg-body-dark transition">
+    <header className="dark:bg-body-dark">
       <TopNav />
 
-      <nav className="bg-light dark:bg-primary-dark transition">
+      <nav className="bg-light dark:bg-primary-dark">
         <div className="max-w-7xl w-full mx-auto px-4 lg:px-10 py-4">
           <div className="flex justify-between items-center">
             <Logo />
@@ -26,12 +27,12 @@ const Header = () => {
 
             <div className="flex items-center gap-3.5">
               <ThemeToggler />
-              <a href="" className="relative inline-block">
+              <NavLink to="/cart" className="relative inline-block">
                 <LuShoppingCart className="size-6 dark:text-light" />
-              </a>
-              <a href="">
+              </NavLink>
+              <NavLink to="/profile">
                 <LuUserCircle2 className="size-[26px] dark:text-light" />
-              </a>
+              </NavLink>
             </div>
           </div>
         </div>

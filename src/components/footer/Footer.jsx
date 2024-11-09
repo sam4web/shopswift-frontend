@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="dark:bg-primary-dark bg-secondary-dark transition">
+    <footer className="dark:bg-primary-dark bg-secondary-dark">
       <div className="py-6 px-5 text-center">
         <p className="text-light">
           &copy;

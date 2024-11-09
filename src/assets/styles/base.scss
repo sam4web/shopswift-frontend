@@ -7,6 +7,14 @@
 
 body {
   @apply dark:bg-body-dark font-display;
+
+  &::-webkit-scrollbar {
+    @apply w-1.5;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply bg-primary-dark dark:bg-light rounded-sm;
+  }
 }
 
 input[type="number"]::-webkit-inner-spin-button,
