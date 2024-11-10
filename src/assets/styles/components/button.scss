@@ -13,3 +13,19 @@
     @apply btn bg-primary-dark border-primary-dark;
   }
 }
+
+.grid-toggle-btn {
+  @apply border rounded-md transition shadow-sm border-zinc-300 p-0.5 dark:border-white;
+
+  & svg {
+    @apply size-7 dark:text-light;
+  }
+
+  &.active {
+    @apply border-transparent bg-primary-dark dark:bg-white;
+
+    svg {
+      @apply text-white dark:text-primary-dark
+    }
+  }
+}

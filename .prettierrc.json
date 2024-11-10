@@ -5,5 +5,9 @@
   "trailingComma": "es5",
   "jsxSingleQuote": false,
   "bracketSameLine": false,
-  "bracketSpacing": true
+  "bracketSpacing": true,
+  "printWidth": 120,
+  "tabWidth": 2,
+  "arrowParens": "always",
+  "endOfLine": "lf"
 }
