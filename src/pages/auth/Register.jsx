@@ -44,7 +44,7 @@ const Register = () => {
       >
 
         <h2
-          className="text-4xl text-secondary-dark font-medium transition text-center dark:text-light"
+          className="text-4xl text-secondary-dark font-medium text-center dark:text-light"
         >
           Register
         </h2>

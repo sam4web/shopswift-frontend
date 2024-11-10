@@ -15,16 +15,16 @@
 }
 
 .grid-toggle-btn {
-  @apply border rounded-md transition shadow-sm border-zinc-300 p-0.5 dark:border-white;
+  @apply border rounded-md shadow-sm border-zinc-300 p-0.5 dark:border-white shadow-sm;
 
   & svg {
-    @apply size-7 dark:text-light;
+    @apply size-7 dark:text-light rounded-lg;
   }
 
   &.active {
     @apply border-transparent bg-primary-dark dark:bg-white;
 
-    svg {
+    & svg {
       @apply text-white dark:text-primary-dark
     }
   }

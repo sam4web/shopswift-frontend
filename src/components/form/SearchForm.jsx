@@ -17,7 +17,7 @@ const SearchForm = () => {
 
   return (
     <form
-      className="px-3 py-5 lg:px-5 lg:py-7 bg-light dark:bg-primary-dark transition shadow-md rounded-xl space-y-3 sm:space-y-7"
+      className="px-3 py-5 lg:px-5 lg:py-7 bg-light dark:bg-primary-dark shadow-md rounded-xl space-y-3 sm:space-y-7"
       onSubmit={handleSubmit}
     >
       <div className="md:space-y-7 grid grid-cols-1 sm:grid-cols-3 gap-3 md:block justify-between items-center">

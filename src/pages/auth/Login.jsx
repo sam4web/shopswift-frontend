@@ -40,7 +40,7 @@ const Login = () => {
         className="max-w-lg w-full shadow-md rounded-xl px-4 sm:px-5 py-7 md:p-8 space-y-6 bg-light dark:bg-primary-dark"
       >
         <h2
-          className="text-4xl text-secondary-dark font-medium transition text-center dark:text-light"
+          className="text-4xl text-secondary-dark font-medium text-center dark:text-light"
         >
           Login
         </h2>

@@ -1,8 +1,7 @@
 import useTitle from "@/hooks/useTitle.js";
 import { useState } from "react";
-import { CiGrid41 } from "react-icons/ci";
-import { HiBars3 } from "react-icons/hi2";
 import SearchForm from "@/components/form/SearchForm.jsx";
+import { FiGrid, FiMenu } from "react-icons/fi";
 
 const ProductList = () => {
   useTitle("Products | ShopSwift");
@@ -29,14 +28,14 @@ const ProductList = () => {
                 className={`grid-toggle-btn ${gridLayout && "active"}`}
                 onClick={() => setGridLayout(true)}
               >
-                <CiGrid41 />
+                <FiGrid />
               </button>
 
               <button
                 className={`grid-toggle-btn ${!gridLayout && "active"}`}
                 onClick={() => setGridLayout(false)}
               >
-                <HiBars3 />
+                <FiMenu />
               </button>
             </div>
           </div>
