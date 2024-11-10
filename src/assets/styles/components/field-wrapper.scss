@@ -1,0 +1,37 @@
+.auth-field-wrapper {
+  @apply space-y-1;
+
+  & label {
+    @apply input-label;
+  }
+
+
+  & input {
+    @apply input-field-lg;
+  }
+
+  & .err-msg {
+    @apply text-red-600 text-base dark:text-red-500;
+  }
+}
+
+.field-wrapper {
+  & label {
+    @apply input-label;
+  }
+
+  & input,
+  & select,
+  & textarea {
+    @apply input-field-lg;
+  }
+
+  & textarea {
+    @apply h-44;
+  }
+
+  & select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+  }
+}

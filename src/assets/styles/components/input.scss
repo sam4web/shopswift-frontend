@@ -1,0 +1,23 @@
+.input-field {
+  @apply w-full border-2 border-gray-200 outline-none dark:border-transparent rounded-md dark:text-light;
+
+  &-sm {
+    @apply input-field px-2 py-1 dark:bg-body-dark;
+  }
+
+  &-lg {
+    @apply input-field px-4 py-3 dark:bg-body-dark;
+  }
+}
+
+.input-label {
+  @apply inline-block text-gray-dark text-base dark:text-white;
+}
+
+.auth-input-field {
+  @apply w-full border-2 border-gray-200 outline-none px-4 py-3 rounded-md;
+}
+
+.auth-input-label {
+  @apply mb-1 inline-block text-gray-dark text-base;
+}

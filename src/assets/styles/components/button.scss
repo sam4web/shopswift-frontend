@@ -1,0 +1,15 @@
+.btn {
+  @apply text-base text-light font-medium px-3 md:px-5 py-2 md:py-3 rounded-md border-2 enabled:hover:text-secondary-dark enabled:hover:bg-transparent dark:enabled:hover:text-light shadow-md;
+
+  &:disabled {
+    @apply opacity-90 cursor-not-allowed;
+  }
+
+  &-primary {
+    @apply btn bg-primary border-primary text-light;
+  }
+
+  &-secondary {
+    @apply btn bg-primary-dark border-primary-dark;
+  }
+}

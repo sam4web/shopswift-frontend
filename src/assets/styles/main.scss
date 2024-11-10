@@ -5,13 +5,17 @@
 @tailwind utilities;
 
 @layer base {
-  @import "base";
+  @import "global/base";
 }
 
 @layer utilities {
-  @import "utils";
+  @import "global/utils";
 }
 
 @layer components {
-  @import "components";
+  @import "components/common";
+  @import "components/header";
+  @import "components/input";
+  @import "components/button";
+  @import "components/field-wrapper";
 }
