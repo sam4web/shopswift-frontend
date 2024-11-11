@@ -1,5 +1,5 @@
 .input-field {
-  @apply w-full border-2 border-gray-200 outline-none dark:border-transparent rounded-md dark:text-light;
+  @apply w-full border-2 border-gray-200 outline-none rounded-md dark:text-light dark:border-gray-dark;
 
   &-sm {
     @apply input-field px-2 py-1 dark:bg-body-dark;
@@ -20,4 +20,8 @@
 
 .auth-input-label {
   @apply mb-1 inline-block text-gray-dark text-base;
+}
+
+.err-msg {
+  @apply text-red-600 text-base dark:text-red-500;
 }

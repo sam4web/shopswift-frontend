@@ -9,10 +9,6 @@
   & input {
     @apply input-field-lg;
   }
-
-  & .err-msg {
-    @apply text-red-600 text-base dark:text-red-500;
-  }
 }
 
 .field-wrapper {
