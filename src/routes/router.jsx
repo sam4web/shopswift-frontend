@@ -11,13 +11,19 @@ import Cart from "@/pages/site/Cart.jsx";
 import Checkout from "@/pages/site/Checkout.jsx";
 import Orders from "@/pages/site/Orders.jsx";
 import Profile from "@/pages/auth/Profile.jsx";
+import ProductCreate from "@/pages/product/ProductCreate.jsx";
+import ProductEdit from "@/pages/product/ProductEdit.jsx";
 
 const router = createBrowserRouter(createRoutesFromElements(
   <>
     <Route path="/" element={<BaseLayout />}>
       <Route index element={<Home />} />
       <Route path="about" element={<About />} />
-      <Route path="products" element={<ProductList />} />
+      <Route path="products">
+        <Route index element={<ProductList />} />
+        <Route path="create" element={<ProductCreate />} />
+        <Route path="edit/:productId" element={<ProductEdit />} />
+      </Route>
       <Route path="cart" element={<Cart />} />
       <Route path="orders" element={<Orders />} />
       <Route path="checkout" element={<Checkout />} />

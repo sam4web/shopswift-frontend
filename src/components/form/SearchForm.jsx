@@ -38,7 +38,7 @@ const SearchForm = () => {
           <select name="category" id="category" className="input-field-sm" onChange={handleChange}>
             <option selected>All</option>
             {CATEGORIES.map((category) => (
-              <option value={category.value} key={category.idx}>
+              <option value={category.value} key={category.id}>
                 {category.title}
               </option>
             ))}
