@@ -10,7 +10,7 @@ const NotFound = () => {
       <div className="section-container">
         <div className="w-full text-center space-y-3.5 lg:space-y-7">
           <h1
-            className="text-7xl lg:text-8xl dark:text-light text-secondary-dark font-extrabold mb-1"
+            className="text-7xl lg:text-8xl dark:text-light text-dark-secondary font-extrabold mb-1"
           >
             404
           </h1>

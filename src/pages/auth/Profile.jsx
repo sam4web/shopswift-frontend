@@ -13,20 +13,20 @@ const Profile = () => {
       >
         <aside className="col-span-1 space-y-5">
           <div
-            className="px-3 py-5 lg:px-5 lg:py-7 bg-light dark:bg-primary-dark transition rounded-xl shadow-md"
+            className="px-3 py-5 lg:px-5 lg:py-7 bg-light dark:bg-dark-primary transition rounded-xl shadow-md"
           >
             <div className="space-y-1 mb-4">
               <h3
-                className="text-2xl dark:text-light text-primary-dark font-medium transition"
+                className="text-2xl dark:text-light text-dark-primary font-medium transition"
               >
                 Username
               </h3>
-              <p className="text-secondary-dark dark:text-white transition">
+              <p className="text-dark-secondary dark:text-white transition">
                 username@example.com
               </p>
               <p className="text-gray-dark dark:text-white transition">
                 Member Since:
-                <span className="text-secondary-dark">
+                <span className="text-dark-secondary">
                   Nov 11, 2024
             </span>
               </p>
@@ -34,7 +34,7 @@ const Profile = () => {
 
             <a href="">
               <button
-                className="btn bg-transparent border-rose-500 text-primary-dark py-1.5 px-5"
+                className="btn bg-transparent border-rose-500 text-dark-primary py-1.5 px-5"
               >
                 Logout
               </button>

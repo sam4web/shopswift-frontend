@@ -25,7 +25,7 @@ const Orders = () => {
               className="w-full text-base text-left text-gray-500 dark:text-gray-400"
             >
               <thead
-                className="text-base text-gray bg-gray-50 dark:text-light shadow-sm dark:bg-primary-dark transition"
+                className="text-base text-gray bg-gray-50 dark:text-light shadow-sm dark:bg-dark-primary transition"
               >
               <tr>
                 <th scope="col" className="px-6 py-4 font-medium">Name</th>

@@ -37,10 +37,10 @@ const Login = () => {
     <section className="size-full flex justify-center items-center px-3">
       <form
         onSubmit={handleSubmit}
-        className="max-w-lg w-full shadow-md rounded-xl px-4 sm:px-5 py-7 md:p-8 space-y-6 bg-light dark:bg-primary-dark"
+        className="max-w-lg w-full shadow-md rounded-xl px-4 sm:px-5 py-7 md:p-8 space-y-6 bg-light dark:bg-dark-primary"
       >
         <h2
-          className="text-4xl text-secondary-dark font-medium text-center dark:text-light"
+          className="text-4xl text-dark-secondary font-medium text-center dark:text-light"
         >
           Login
         </h2>
@@ -90,7 +90,7 @@ const Login = () => {
           Login
         </button>
 
-        <p className="text-center text-secondary-dark dark:text-light">
+        <p className="text-center text-dark-secondary dark:text-light">
           Not a member yet?{" "}
           <NavLink to="/register" className="text-primary font-medium">
             Register

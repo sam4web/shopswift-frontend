@@ -6,14 +6,14 @@
 }
 
 body {
-  @apply dark:bg-body-dark font-display;
+  @apply dark:bg-dark-body font-display;
 
   &::-webkit-scrollbar {
     @apply w-1.5;
   }
 
   &::-webkit-scrollbar-thumb {
-    @apply bg-primary-dark dark:bg-light rounded-sm;
+    @apply bg-dark-primary dark:bg-light rounded-sm;
   }
 }
 

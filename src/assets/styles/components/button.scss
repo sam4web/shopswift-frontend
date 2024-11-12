@@ -1,5 +1,5 @@
 .btn {
-  @apply text-base text-light font-medium px-3 md:px-5 py-2 md:py-3 rounded-md border-2 enabled:hover:text-secondary-dark enabled:hover:bg-transparent dark:enabled:hover:text-light shadow-md;
+  @apply text-base text-light font-medium px-3 md:px-5 py-2 md:py-3 rounded-md border-2 enabled:hover:text-dark-secondary enabled:hover:bg-transparent dark:enabled:hover:text-light shadow-md;
 
   &:disabled {
     @apply opacity-90 cursor-not-allowed;
@@ -10,7 +10,7 @@
   }
 
   &-secondary {
-    @apply btn bg-primary-dark border-primary-dark;
+    @apply btn bg-dark-primary border-dark-primary;
   }
 }
 
@@ -22,10 +22,10 @@
   }
 
   &.active {
-    @apply border-transparent bg-primary-dark dark:bg-white;
+    @apply border-transparent bg-dark-primary dark:bg-white;
 
     & svg {
-      @apply text-white dark:text-primary-dark
+      @apply text-white dark:text-dark-primary
     }
   }
 }

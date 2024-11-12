@@ -13,10 +13,10 @@ const Header = () => {
   const toggleSidenav = () => setShowSidenav(prev => !prev);
 
   return (
-    <header className="dark:bg-body-dark">
+    <header className="dark:bg-dark-body">
       <TopNav />
 
-      <nav className="bg-light dark:bg-primary-dark">
+      <nav className="bg-light dark:bg-dark-primary">
         <div className="max-w-7xl w-full mx-auto px-4 lg:px-10 py-4">
           <div className="flex justify-between items-center">
             <Logo />

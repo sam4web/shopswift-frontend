@@ -14,7 +14,7 @@ const About = () => {
 
             <div className="space-y-3 lg:space-y-5 w-full max-w-md md:max-w-lg">
               <h1
-                className="text-3xl lg:text-5xl dark:text-light text-secondary-dark font-extrabold mb-4"
+                className="text-3xl lg:text-5xl dark:text-light text-dark-secondary font-extrabold mb-4"
               >
                 About Us
               </h1>
@@ -43,7 +43,7 @@ const About = () => {
         </div>
       </section>
 
-      <section className="bg-light dark:bg-primary-dark py-1">
+      <section className="bg-light dark:bg-dark-primary py-1">
         <div className="section-container">
           <h3 className="text-3xl lg:text-4xl text-gray font-extrabold dark:text-light">
             Our Story

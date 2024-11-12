@@ -37,9 +37,9 @@ const Home = () => {
       </section>
 
 
-      <section className="bg-light dark:bg-primary-dark py-1">
+      <section className="bg-light dark:bg-dark-primary py-1">
         <div className="section-container">
-          <h3 className="text-3xl dark:text-light text-body-dark font-medium">
+          <h3 className="text-3xl dark:text-light text-dark-body font-medium">
             Feature Products
           </h3>
           <hr className="line-break" />
@@ -57,7 +57,7 @@ const Home = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-11 lg:gap-16">
             <div className="space-y-3">
               <h3
-                className="text-3xl dark:text-light text-secondary-dark font-medium"
+                className="text-3xl dark:text-light text-dark-secondary font-medium"
               >
                 Join our newsletter for 20% off
               </h3>

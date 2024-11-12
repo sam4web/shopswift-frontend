@@ -1,7 +1,7 @@
 .nav-link {
-  @apply text-secondary-dark dark:text-light font-medium text-sm dark:hover:bg-slate-800 hover:bg-slate-200 hover:shadow-sm px-2.5 py-2 rounded-md w-full cursor-pointer capitalize block;
+  @apply text-dark-secondary dark:text-light font-medium text-sm dark:hover:bg-slate-800 hover:bg-slate-200 hover:shadow-sm px-2.5 py-2 rounded-md w-full cursor-pointer capitalize block;
 
   &.active {
-    @apply text-light dark:bg-gray-dark bg-primary-dark dark:hover:bg-gray-dark hover:bg-primary-dark shadow-sm;
+    @apply text-light dark:bg-gray-dark bg-dark-primary dark:hover:bg-gray-dark hover:bg-dark-primary shadow-sm;
   }
 }

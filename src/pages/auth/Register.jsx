@@ -40,11 +40,11 @@ const Register = () => {
     <section className="size-full flex justify-center items-center px-3">
       <form
         onSubmit={handleSubmit}
-        className="max-w-xl w-full shadow-md rounded-xl px-4 sm:px-5 py-7 md:p-8 space-y-6 bg-light dark:bg-primary-dark"
+        className="max-w-xl w-full shadow-md rounded-xl px-4 sm:px-5 py-7 md:p-8 space-y-6 bg-light dark:bg-dark-primary"
       >
 
         <h2
-          className="text-4xl text-secondary-dark font-medium text-center dark:text-light"
+          className="text-4xl text-dark-secondary font-medium text-center dark:text-light"
         >
           Register
         </h2>
@@ -118,7 +118,7 @@ const Register = () => {
           Register
         </button>
 
-        <p className="text-center text-secondary-dark dark:text-light">
+        <p className="text-center text-dark-secondary dark:text-light">
           Already a member?{" "}
           <NavLink to="/login" className="text-primary font-medium">
             Login
