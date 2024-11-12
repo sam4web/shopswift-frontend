@@ -1,7 +1,7 @@
 const PricingDetail = ({ pricing }) => {
   return (
     <div
-      className="px-3 py-5 lg:p-5 bg-light dark:bg-primary-dark transition rounded-xl space-y-4 mb-4"
+      className="px-3 py-5 lg:p-5 bg-light dark:bg-primary-dark shadow-sm transition rounded-xl space-y-4 mb-4"
     >
       <div className="border-b pb-1.5 flex justify-between">
         <p className="text-gray dark:text-light">Subtotal</p>

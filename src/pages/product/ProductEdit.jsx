@@ -4,7 +4,7 @@ import useTitle from "@/hooks/useTitle.js";
 import { useParams } from "react-router-dom";
 
 const ProductEdit = () => {
-  useTitle("New Product | ShopSwift");
+  useTitle("Update {ProductName} | ShopSwift");
   const { productId } = useParams();
   console.log(productId);
 
