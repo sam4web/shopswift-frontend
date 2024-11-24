@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import useTitle from "@/hooks/useTitle.js";
 
-const NotFound = () => {
+const NotFound = ({ message }) => {
   useTitle("Page Not Found | ShopSwift");
   const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ const NotFound = () => {
           </h1>
 
           <p className="font-normal text-lg dark:text-light max-w-xs mx-auto">
-            Sorry, the page you&#39;re looking for doesn&#39;t exist.
+            {message ? message : "Sorry, the page you're looking for doesn't exist."}
           </p>
 
           <button
