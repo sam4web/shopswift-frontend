@@ -15,6 +15,7 @@ import ProductCreate from "@/pages/product/ProductCreate.jsx";
 import ProductEdit from "@/pages/product/ProductEdit.jsx";
 import PrefetchProducts from "@/components/product/PrefetchProducts.jsx";
 import ProductDetail from "@/pages/product/ProductDetail.jsx";
+import AuthRequired from "@/components/auth/AuthRequired.jsx";
 
 const router = createBrowserRouter(createRoutesFromElements(
   <>
@@ -24,14 +25,18 @@ const router = createBrowserRouter(createRoutesFromElements(
         <Route path="about" element={<About />} />
         <Route path="products">
           <Route index element={<ProductList />} />
-          <Route path="create" element={<ProductCreate />} />
           <Route path=":productId" element={<ProductDetail />} />
-          <Route path="edit/:productId" element={<ProductEdit />} />
+          <Route element={<AuthRequired />}>
+            <Route path="create" element={<ProductCreate />} />
+            <Route path="edit/:productId" element={<ProductEdit />} />
+          </Route>
         </Route>
-        <Route path="cart" element={<Cart />} />
-        <Route path="orders" element={<Orders />} />
-        <Route path="checkout" element={<Checkout />} />
-        <Route path="profile" element={<Profile />} />
+        <Route element={<AuthRequired />}>
+          <Route path="cart" element={<Cart />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="checkout" element={<Checkout />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
       </Route>
       <Route path="*" element={<NotFound />} />
     </Route>

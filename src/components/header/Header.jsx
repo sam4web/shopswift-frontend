@@ -1,5 +1,4 @@
 import TopNav from "@/components/header/TopNav.jsx";
-import ThemeToggler from "@/components/header/ThemeToggler.jsx";
 import { useState } from "react";
 import Logo from "@/components/header/Logo.jsx";
 import NavLinks from "@/components/header/NavLinks.jsx";
@@ -7,6 +6,7 @@ import Sidenav from "@/components/header/Sidenav.jsx";
 import { LuShoppingCart, LuUserCircle2 } from "react-icons/lu";
 import { FaBars } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
+import ThemeToggle from "@/components/header/ThemeToggle.jsx";
 
 const Header = () => {
   const [showSidenav, setShowSidenav] = useState(false);
@@ -26,7 +26,7 @@ const Header = () => {
             </button>
 
             <div className="flex items-center gap-3.5">
-              <ThemeToggler />
+              <ThemeToggle />
               <NavLink to="/cart" className="relative inline-block">
                 <LuShoppingCart className="size-6 dark:text-light" />
               </NavLink>

@@ -1,13 +1,22 @@
 import useTitle from "@/hooks/useTitle.js";
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 import { useState } from "react";
 import { validateEmail, validatePassword, validateUsername } from "@/utils/validateCredentials.js";
+import { useDispatch, useSelector } from "react-redux";
+import { sendRegisterRequest } from "@/features/auth/authThunks.js";
+import { isUserAuthenticated } from "@/features/auth/authSlice.js";
 
 const Register = () => {
   useTitle("Create Account | ShopSwift");
 
   const [formData, setFormData] = useState(null);
   const [errors, setErrors] = useState(null);
+  const dispatch = useDispatch();
+
+  const isAuthenticated = useSelector(isUserAuthenticated);
+  if (isAuthenticated)
+    return <Navigate to={"/"} replace={true} />;
+
 
   const validateForm = () => {
     const newErrors = {};
@@ -30,10 +39,18 @@ const Register = () => {
 
   const canSubmit = [formData?.username, formData?.email, formData?.password, formData?.password2].every(Boolean);
 
+  const registerUser = async () => {
+    try {
+      await dispatch(sendRegisterRequest(formData)).unwrap();
+    } catch (err) {
+      setErrors(prev => ({ ...prev, message: err }));
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-    console.log(formData);
+    registerUser();
   };
 
   return (

@@ -18,7 +18,7 @@ const productSlice = createSlice({
   },
 });
 
-export const selectProducts = (state) => state.products;
-export const selectProductById = (state, productId) => state.products.find(product => product._id === productId);
+export const selectProducts = (state) => state.product.products;
+export const selectProductById = (state, productId) => state.product.products.find(product => product._id === productId);
 
 export default productSlice.reducer;

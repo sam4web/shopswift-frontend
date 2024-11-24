@@ -1,13 +1,21 @@
 import useTitle from "@/hooks/useTitle.js";
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 import { useState } from "react";
 import { validatePassword, validateUsername } from "@/utils/validateCredentials.js";
+import { sendLoginRequest } from "@/features/auth/authThunks.js";
+import { useDispatch, useSelector } from "react-redux";
+import { isUserAuthenticated } from "@/features/auth/authSlice.js";
 
 const Login = () => {
   useTitle("Sign in | ShopSwift");
 
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState(null);
   const [errors, setErrors] = useState(null);
+
+  const isAuthenticated = useSelector(isUserAuthenticated);
+  if (isAuthenticated)
+    return <Navigate to={"/"} replace={true} />;
 
   const validateForm = () => {
     const newErrors = {};
@@ -27,10 +35,18 @@ const Login = () => {
 
   const canSubmit = [formData?.username, formData?.password].every(Boolean);
 
+  const loginUser = async () => {
+    try {
+      await dispatch(sendLoginRequest(formData)).unwrap();
+    } catch (err) {
+      setErrors(prev => ({ ...prev, message: err }));
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-    console.log(formData);
+    loginUser();
   };
 
   return (

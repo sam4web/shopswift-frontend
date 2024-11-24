@@ -54,7 +54,7 @@ const Home = () => {
               <ProductGridItem
                 productId={product._id}
                 key={product._id}
-                style={"bg-white"}
+                bgStyle={"bg-white dark:bg-dark-body"}
               />
             ))}
           </div>

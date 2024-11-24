@@ -1,33 +1,40 @@
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { isUserAuthenticated, selectUser } from "@/features/auth/authSlice.js";
 
 const TopNav = () => {
+  const isAuthenticated = useSelector(isUserAuthenticated);
+  const user = useSelector(selectUser);
+
   return (
     <nav className="bg-dark-secondary dark:bg-gray-dark">
       <div className="max-w-7xl w-full mx-auto px-4 lg:px-10 py-1.5">
         <ul
           className="text-light text-sm md:text-[16px] font-light flex justify-center items-center sm:justify-end space-x-6"
         >
-          {/*
-          <li>Hello, {{ request.user }}</li>
-          <li>
-            <a href="{% url 'user:logout' %}">
-              <button
-                class="text-sm text-light px-3 py-1 rounded-md border-primary border-2"
-              >
-                Logout
-              </button>
-            </a>
-          </li>
-          */}
-
-          <li>
-            <NavLink to="/login" className="hover:underline">Sign in</NavLink>
-          </li>
-          <li>
-            <NavLink to="/register" className="hover:underline">
-              Create Account
-            </NavLink>
-          </li>
+          {isAuthenticated
+            ? <>
+              <li>Hello, {user?.username}</li>
+              <li>
+                <a href="">
+                  <button
+                    className="text-sm text-light px-3 py-1 rounded-md border-primary border-2"
+                  >
+                    Logout
+                  </button>
+                </a>
+              </li>
+            </>
+            : <>
+              <li>
+                <NavLink to="/login" className="hover:underline">Sign in</NavLink>
+              </li>
+              <li>
+                <NavLink to="/register" className="hover:underline">
+                  Create Account
+                </NavLink>
+              </li>
+            </>}
         </ul>
       </div>
     </nav>

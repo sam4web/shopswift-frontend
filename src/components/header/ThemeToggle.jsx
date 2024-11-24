@@ -1,7 +1,7 @@
 import useTheme from "@/hooks/useTheme.js";
 import { FiMoon, FiSun } from "react-icons/fi";
 
-const ThemeToggler = () => {
+const ThemeToggle = () => {
   const { toggleTheme } = useTheme();
 
   return (
@@ -16,4 +16,4 @@ const ThemeToggler = () => {
   );
 };
 
-export default ThemeToggler;
+export default ThemeToggle;
