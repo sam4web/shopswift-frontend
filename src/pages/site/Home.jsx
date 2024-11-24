@@ -1,8 +1,13 @@
 import heroImage from "@/assets/images/hero-image.jpg";
 import useTitle from "@/hooks/useTitle.js";
+import { useSelector } from "react-redux";
+import { selectProducts } from "@/features/product/productSlice.js";
+import ProductGridItem from "@/components/product/ProductGridItem.jsx";
+import { NavLink } from "react-router-dom";
 
 const Home = () => {
   useTitle("ShopSwift | Explore Shop Thrive");
+  const products = useSelector(selectProducts);
 
   return (
     <>
@@ -21,9 +26,9 @@ const Home = () => {
                 SwiftShop, a clean and functional e-commerce website built using
                 MERN Stack, highlighting essential web development techniques.
               </p>
-              <a href="">
+              <NavLink to="/products">
                 <button className="btn-primary mt-3">View Products</button>
-              </a>
+              </NavLink>
             </div>
             <div className="flex justify-end">
               <img
@@ -36,7 +41,6 @@ const Home = () => {
         </div>
       </section>
 
-
       <section className="bg-light dark:bg-dark-primary py-1">
         <div className="section-container">
           <h3 className="text-3xl dark:text-light text-dark-body font-medium">
@@ -46,11 +50,16 @@ const Home = () => {
           <div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6 mt-14"
           >
-            {/* Products here */}
+            {products && products.map(product => (
+              <ProductGridItem
+                productId={product._id}
+                key={product._id}
+                style={"bg-white"}
+              />
+            ))}
           </div>
         </div>
       </section>
-
 
       <section>
         <div className="section-container">

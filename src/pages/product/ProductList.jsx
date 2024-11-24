@@ -1,11 +1,20 @@
 import useTitle from "@/hooks/useTitle.js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchForm from "@/components/form/SearchForm.jsx";
 import { FiGrid, FiMenu } from "react-icons/fi";
+import ProductGridItem from "@/components/product/ProductGridItem.jsx";
+import { useSelector } from "react-redux";
+import { selectProducts } from "@/features/product/productSlice.js";
+import ProductListItem from "@/components/product/ProductListItem.jsx";
 
 const ProductList = () => {
   useTitle("Products | ShopSwift");
-  const [gridLayout, setGridLayout] = useState(false);
+  const [gridLayout, setGridLayout] = useState(localStorage.getItem("layout") === "grid");
+  const products = useSelector(selectProducts);
+
+  useEffect(() => {
+    localStorage.setItem("layout", gridLayout ? "grid" : "list");
+  }, [gridLayout]);
 
   return (
     <div
@@ -14,7 +23,6 @@ const ProductList = () => {
       <aside className="md:col-span-2 lg:col-span-2">
         <SearchForm />
       </aside>
-
 
       <section className="col-span-3 lg:col-span-4">
         <div>
@@ -41,6 +49,21 @@ const ProductList = () => {
           </div>
 
           <hr className="line-break" />
+
+          <div className={gridLayout ? "grid grid-cols-1 md:grid-cols-2 gap-4 my-6" : "space-y-6 my-6"}
+          >
+            {products && products.map(product => (
+              gridLayout
+                ? <ProductGridItem
+                  productId={product._id}
+                  key={product._id}
+                />
+                : <ProductListItem
+                  productId={product._id}
+                  key={product._id}
+                />
+            ))}
+          </div>
         </div>
       </section>
     </div>
