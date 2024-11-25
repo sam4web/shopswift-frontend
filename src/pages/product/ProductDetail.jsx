@@ -1,13 +1,16 @@
 import { useSelector } from "react-redux";
 import { selectProductById } from "@/features/product/productSlice.js";
 import useTitle from "@/hooks/useTitle.js";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import NotFound from "@/pages/site/NotFound.jsx";
+import { selectUser } from "@/features/auth/authSlice.js";
+import getCategoryTitle from "@/utils/getCategoryTitle.js";
 import formatDate from "@/utils/formatDate.js";
 
 const ProductDetail = () => {
   const { productId } = useParams();
   const product = useSelector(state => selectProductById(state, productId));
+  const user = useSelector(selectUser);
 
   useTitle(`${product?.name || "Not found"} | ShopSwift`);
 
@@ -17,19 +20,42 @@ const ProductDetail = () => {
   return (
     <div className="section-container">
       <section className="grid md:grid-cols-2 gap-5 md:gap-11">
-        <img
-          src={`data:image/png;base64, ${product.image.data}`}
-          className="rounded-lg shadow-md"
-          alt={product.image.name}
-        />
+        <div className="space-y-3">
+          <img
+            src={`data:image/png;base64, ${product.image.data}`}
+            className="rounded-lg shadow-md"
+            alt={product.image.name}
+          />
+          {product.createdBy.id !== user.id &&
+            <p className="text-lg text-dark-secondary dark:text-light">
+              Provided by {" "}
+              <NavLink
+                to={`/user/${product.createdBy.id}`}
+                className="text-primary font-medium hover:underline"
+              >
+                {product.createdBy.username}
+              </NavLink>.
+            </p>
+          }
+        </div>
 
         <div className="flex justify-between items-end flex-col">
-
           <div className="space-y-4 lg:space-y-6">
-            <div className="space-y-2">
+            <div className="space-y-2.5">
+              <div className="flex-between text-gray-dark dark:text-light">
+                <p>
+                  {getCategoryTitle(product.category)}
+                </p>
+                <p>
+                  Listed on {" "}
+                  <strong className="font-medium">
+                    {formatDate(product.createdAt)}
+                  </strong>
+                </p>
+              </div>
               <div className="flex-between">
                 <h3
-                  className="text-2xl lg:text-3xl dark:text-light text-gray font-bold transition"
+                  className="text-3xl lg:text-4xl dark:text-light text-gray font-bold transition"
                 >
                   {product.name}
                 </h3>
@@ -37,15 +63,6 @@ const ProductDetail = () => {
                   ${product.price}
                 </p>
               </div>
-              <p className="text-lg text-secondary-dark dark:text-light">
-                Product available since{" "}
-                <strong className="font-semibold">
-                  {formatDate(product.createdAt)}
-                </strong>, provided by{" "}
-                <strong className="font-semibold">
-                  {product.createdBy}
-                </strong>.
-              </p>
             </div>
 
             <p
@@ -55,11 +72,21 @@ const ProductDetail = () => {
             </p>
           </div>
 
-          <a href="" className="inline-block">
+          {product.createdBy.id === user.id ?
+            <div className="space-x-2">
+              <button
+                className="btn bg-emerald-500 border-emerald-500 py-2 font-medium"
+              >
+                Edit
+              </button>
+              <button className="btn bg-rose-500 border-rose-500 py-2 font-medium">
+                Delete
+              </button>
+            </div> :
             <button className="btn-secondary py-3 font-medium">
               Add to Cart
             </button>
-          </a>
+          }
         </div>
       </section>
 

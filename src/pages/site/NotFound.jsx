@@ -21,7 +21,7 @@ const NotFound = ({ message }) => {
 
           <button
             className="btn-secondary dark:btn-primary"
-            onClick={() => navigate("/")}>
+            onClick={() => navigate("/", { replace: true })}>
             Back to Home
           </button>
         </div>
