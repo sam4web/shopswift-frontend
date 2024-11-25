@@ -1,10 +1,12 @@
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { isUserAuthenticated, selectUser } from "@/features/auth/authSlice.js";
+import useLogout from "@/hooks/useLogout.js";
 
 const TopNav = () => {
   const isAuthenticated = useSelector(isUserAuthenticated);
   const user = useSelector(selectUser);
+  const logout = useLogout();
 
   return (
     <nav className="bg-dark-secondary dark:bg-gray-dark">
@@ -16,13 +18,12 @@ const TopNav = () => {
             ? <>
               <li>Hello, {user?.username}</li>
               <li>
-                <a href="">
-                  <button
-                    className="text-sm text-light px-3 py-1 rounded-md border-primary border-2"
-                  >
-                    Logout
-                  </button>
-                </a>
+                <button
+                  className="text-sm text-light px-3 py-1 rounded-md border-primary border-2"
+                  onClick={logout}
+                >
+                  Logout
+                </button>
               </li>
             </>
             : <>

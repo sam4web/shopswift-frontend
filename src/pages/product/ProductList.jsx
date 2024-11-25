@@ -28,7 +28,7 @@ const ProductList = () => {
         <div>
           <div className="flex justify-between items-center">
             <p className="text-lg dark:text-light">
-              0 Products Found
+              {products.length} Products Found
             </p>
 
             <div className="space-x-1.5">

@@ -1,12 +1,21 @@
 import useTitle from "@/hooks/useTitle.js";
 import SearchForm from "@/components/form/SearchForm.jsx";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectProductsByUser, selectUser } from "@/features/auth/authSlice.js";
+import formatDate from "@/utils/formatDate.js";
+import ProductListItem from "@/components/product/ProductListItem.jsx";
+import useLogout from "@/hooks/useLogout.js";
 
 const Profile = () => {
-  useTitle("Hello Username | ShopSwift");
+  const user = useSelector(selectUser);
+  const products = useSelector(selectProductsByUser);
+  const logout = useLogout();
+
+  useTitle(`Hello ${user.username} | ShopSwift`);
+
 
   return (
-
     <div className="section-container">
       <div
         className="md:grid grid-cols-3 items-start space-y-6 md:space-y-0 space-x-0 md:space-x-6"
@@ -19,26 +28,25 @@ const Profile = () => {
               <h3
                 className="text-2xl dark:text-light text-dark-primary font-medium transition"
               >
-                Username
+                {user.username}
               </h3>
               <p className="text-dark-secondary dark:text-white transition">
-                username@example.com
+                {user.email}
               </p>
               <p className="text-gray-dark dark:text-white transition">
-                Member Since:
+                Member Since:{" "}
                 <span className="text-dark-secondary">
-                  Nov 11, 2024
+                  {formatDate(user.createdAt)}
             </span>
               </p>
             </div>
 
-            <a href="">
-              <button
-                className="btn bg-transparent border-rose-500 text-dark-primary py-1.5 px-5"
-              >
-                Logout
-              </button>
-            </a>
+            <button
+              className="btn bg-transparent border-rose-500 text-dark-primary py-1.5 px-5"
+              onClick={logout}
+            >
+              Logout
+            </button>
           </div>
 
           <SearchForm />
@@ -58,13 +66,20 @@ const Profile = () => {
               My Products
             </h3>
             <p className="text-lg text-gray dark:text-light">
-              Total products: 0
+              Total products: {products.length}
             </p>
           </div>
           <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700" />
 
           <div className="space-y-6">
-            {/* PRODUCTS HERE */}
+            {products &&
+              products.map(product => (
+                <ProductListItem
+                  productId={product._id}
+                  key={product._id}
+                />
+              ))
+            }
           </div>
         </section>
       </div>

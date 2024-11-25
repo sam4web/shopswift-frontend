@@ -16,33 +16,36 @@ import ProductEdit from "@/pages/product/ProductEdit.jsx";
 import PrefetchProducts from "@/components/product/PrefetchProducts.jsx";
 import ProductDetail from "@/pages/product/ProductDetail.jsx";
 import AuthRequired from "@/components/auth/AuthRequired.jsx";
+import AuthPersist from "@/components/auth/AuthPersist.jsx";
 
 const router = createBrowserRouter(createRoutesFromElements(
   <>
-    <Route path="/" element={<BaseLayout />}>
-      <Route element={<PrefetchProducts />}>
-        <Route index element={<Home />} />
-        <Route path="about" element={<About />} />
-        <Route path="products">
-          <Route index element={<ProductList />} />
-          <Route path=":productId" element={<ProductDetail />} />
+    <Route element={<AuthPersist />}>
+      <Route path="/" element={<BaseLayout />}>
+        <Route element={<PrefetchProducts />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="products">
+            <Route index element={<ProductList />} />
+            <Route path=":productId" element={<ProductDetail />} />
+            <Route element={<AuthRequired />}>
+              <Route path="create" element={<ProductCreate />} />
+              <Route path="edit/:productId" element={<ProductEdit />} />
+            </Route>
+          </Route>
           <Route element={<AuthRequired />}>
-            <Route path="create" element={<ProductCreate />} />
-            <Route path="edit/:productId" element={<ProductEdit />} />
+            <Route path="cart" element={<Cart />} />
+            <Route path="orders" element={<Orders />} />
+            <Route path="checkout" element={<Checkout />} />
+            <Route path="profile" element={<Profile />} />
           </Route>
         </Route>
-        <Route element={<AuthRequired />}>
-          <Route path="cart" element={<Cart />} />
-          <Route path="orders" element={<Orders />} />
-          <Route path="checkout" element={<Checkout />} />
-          <Route path="profile" element={<Profile />} />
-        </Route>
+        <Route path="*" element={<NotFound />} />
       </Route>
-      <Route path="*" element={<NotFound />} />
-    </Route>
-    <Route element={<AuthLayout />}>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route element={<AuthLayout />}>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Route>
     </Route>
   </>,
 ));

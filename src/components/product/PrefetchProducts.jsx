@@ -12,7 +12,6 @@ const PrefetchProducts = () => {
     try {
       await dispatch(fetchProductsQuery()).unwrap();
     } catch (err) {
-
     } finally {
       setLoading(false);
     }
@@ -23,7 +22,6 @@ const PrefetchProducts = () => {
   }, []);
 
   if (loading) return <Spinner />;
-
 
   return <Outlet />;
 };
