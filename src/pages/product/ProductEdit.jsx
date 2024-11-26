@@ -1,17 +1,41 @@
 import { useState } from "react";
 import ProductForm from "@/components/form/ProductForm.jsx";
 import useTitle from "@/hooks/useTitle.js";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectProductById } from "@/features/product/productSlice.js";
+import { isUserAuthenticated, selectUser } from "@/features/auth/authSlice.js";
+import NotFound from "@/pages/site/NotFound.jsx";
+import { updateProductRecord } from "@/features/product/productThunks.js";
 
 const ProductEdit = () => {
-  useTitle("Update {ProductName} | ShopSwift");
   const { productId } = useParams();
-  console.log(productId);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [error, setError] = useState();
+  const product = useSelector(state => selectProductById(state, productId));
+  const user = useSelector(selectUser);
+  const isAuthenticated = useSelector(isUserAuthenticated);
 
-  const handleSubmit = (productData) => {
-    console.log(productData);
+  useTitle(product?.name ? `Update ${product.name}` : "Not Found" + " | ShopSwift");
+
+  if (!product)
+    return <NotFound message="Sorry, the product you're looking for doesn't exist." />;
+
+  const productBelongsToUser = isAuthenticated ? product.createdBy.id === user.id : false;
+  if (!productBelongsToUser)
+    // TODO: toast msg saying "This product doesn't belong to you."
+    return <Navigate to={"/products"} replace={true} />;
+
+  const handleSubmit = async (productData) => {
+    try {
+      await dispatch(updateProductRecord({ data: productData, id: productId })).unwrap();
+      navigate(`/products/${productId}`);
+    } catch (err) {
+      console.log(err);
+      setError(err);
+    }
   };
 
   return (
@@ -32,7 +56,10 @@ const ProductEdit = () => {
         </div>
       }
 
-      <ProductForm handleSubmit={handleSubmit} />
+      <ProductForm
+        initialData={product}
+        handleSubmit={handleSubmit}
+      />
     </div>
   );
 };

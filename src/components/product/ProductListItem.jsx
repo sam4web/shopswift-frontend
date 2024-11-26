@@ -43,13 +43,13 @@ const ProductListItem = ({ productId, self }) => {
 
           {self &&
             <>
-              <a href="" className="inline-block">
+              <NavLink to={`/products/edit/${productId}`} className="inline-block">
                 <button
                   className="btn bg-emerald-500 border-emerald-500 px-3 py-1.5"
                 >
                   Edit
                 </button>
-              </a>
+              </NavLink>
               <button
                 className="btn bg-rose-500 border-rose-500 px-3 py-1.5"
                 onClick={deleteProduct}

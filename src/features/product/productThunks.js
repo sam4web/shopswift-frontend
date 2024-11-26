@@ -38,3 +38,18 @@ export const deleteProductRequest = createAsyncThunk("product/deleteProduct", as
     return rejectWithValue(err.response?.data?.message || err.message);
   }
 });
+
+export const updateProductRecord = createAsyncThunk("product/updateProduct",
+  async (product, { rejectWithValue, getState }) => {
+    try {
+      const response = await api.patch(`/api/products/${product.id}`, product.data, {
+        headers: {
+          "Authorization": `Bearer ${getState().auth.token}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
+      return response.data;
+    } catch (err) {
+      return rejectWithValue(err.response?.data?.message || err.message);
+    }
+  });

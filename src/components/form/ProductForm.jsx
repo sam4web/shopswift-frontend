@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { CATEGORIES } from "@/constants/index.js";
 
-const ProductForm = ({ create, handleSubmit }) => {
-  const [productData, setProductData] = useState();
-  const [imageFile, setImageFile] = useState(null);
+const ProductForm = ({ create, handleSubmit, initialData }) => {
+  const [productData, setProductData] = useState(initialData || null);
+  const [imageFile, setImageFile] = useState(initialData?.image || null);
   const [errors, setErrors] = useState();
 
   const validateForm = () => {
@@ -11,7 +11,7 @@ const ProductForm = ({ create, handleSubmit }) => {
     if (!productData?.name) newErrors.name = "Name is required.";
     if (!productData?.price) newErrors.price = "Price is required.";
     if (!productData?.category) newErrors.category = "Select a category.";
-    if (!imageFile) newErrors.image = "Image is required.";
+    if (create && !imageFile) newErrors.image = "Image is required.";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0 && canSubmit;
   };
@@ -79,7 +79,7 @@ const ProductForm = ({ create, handleSubmit }) => {
 
       <div className="field-wrapper">
         <label htmlFor="category">Category</label>
-        <select name="category" id="category" onChange={handleChange} defaultValue={""}>
+        <select name="category" id="category" onChange={handleChange} defaultValue={productData?.category}>
           <option value="" disabled>---------</option>
           {CATEGORIES.map((category) => (
             <option value={category.value} key={category.id}>
@@ -95,7 +95,7 @@ const ProductForm = ({ create, handleSubmit }) => {
         {!create && (
           <>
             <span className="pl-2">
-              Currently: <a href="/">currentFileName</a>
+              Currently: <a href="/">{initialData?.image.name}</a>
             </span>
             <p>Change:</p>
           </>

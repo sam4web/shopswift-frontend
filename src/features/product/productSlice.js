@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit/react";
-import { createProductEntry, deleteProductRequest, fetchProductsQuery } from "@/features/product/productThunks.js";
+import {
+  createProductEntry,
+  deleteProductRequest,
+  fetchProductsQuery,
+  updateProductRecord,
+} from "@/features/product/productThunks.js";
 import { deleteProductReducer } from "@/features/product/productReducers.js";
 
 const initialState = {
@@ -19,12 +24,18 @@ const productSlice = createSlice({
       .addCase(createProductEntry.fulfilled, (state, action) => {
         state.products.push({ ...action.payload });
       })
-      .addCase(deleteProductRequest.fulfilled, deleteProductReducer);
+      .addCase(deleteProductRequest.fulfilled, deleteProductReducer)
+      .addCase(updateProductRecord.fulfilled, (state, action) => {
+        const updatedProduct = { ...action.payload };
+        state.products = state.products.filter(product => product._id !== updatedProduct._id);
+        state.products.unshift(updatedProduct);
+      });
   },
 });
 
 export const selectProducts = (state) =>
   [...state.product.products].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
-export const selectProductById = (state, productId) => state.product.products.find(product => product._id === productId);
+export const selectProductById = (state, productId) =>
+  state.product.products.find(product => product._id === productId);
 
 export default productSlice.reducer;

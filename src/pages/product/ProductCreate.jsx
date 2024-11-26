@@ -15,7 +15,6 @@ const ProductCreate = () => {
   const handleSubmit = async (productData) => {
     try {
       const product = await dispatch(createProductEntry(productData)).unwrap();
-      console.log(product);
       navigate(`/products/${product._id}`);
     } catch (err) {
       setError(err);

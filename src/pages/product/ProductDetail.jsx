@@ -81,11 +81,13 @@ const ProductDetail = () => {
           <div className="flex justify-end">
             {productBelongsToUser ?
               <div className="space-x-2">
-                <button
-                  className="btn bg-emerald-500 border-emerald-500 py-2 font-medium"
-                >
-                  Edit
-                </button>
+                <NavLink to={`/products/edit/${productId}`}>
+                  <button
+                    className="btn bg-emerald-500 border-emerald-500 py-2 font-medium"
+                  >
+                    Edit
+                  </button>
+                </NavLink>
                 <button
                   className="btn bg-rose-500 border-rose-500 py-2 font-medium"
                   onClick={() => {
