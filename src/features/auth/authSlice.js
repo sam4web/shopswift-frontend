@@ -6,7 +6,9 @@ import {
   sendRefreshTokenRequest,
   sendRegisterRequest,
 } from "@/features/auth/authThunks.js";
-import { setUserReducer } from "@/features/auth/authReducer.js";
+import { clearUserReducer, setUserReducer } from "@/features/auth/authReducer.js";
+import { deleteProductRequest } from "@/features/product/productThunks.js";
+import { deleteProductReducer } from "@/features/product/productReducers.js";
 
 const initialState = {
   user: null,
@@ -24,22 +26,19 @@ const authSlice = createSlice({
       .addCase(sendLoginRequest.fulfilled, setUserReducer)
       .addCase(sendRegisterRequest.fulfilled, setUserReducer)
       .addCase(sendRefreshTokenRequest.fulfilled, setUserReducer)
-      .addCase(sendLogoutRequest.fulfilled, (state, action) => {
-        state.products = "";
-        state.user = null;
-        state.token = null;
-      })
+      .addCase(sendLogoutRequest.fulfilled, clearUserReducer)
       .addCase(fetchProductsByUser.fulfilled, (state, action) => {
         state.products = action.payload;
-      });
-
+      })
+      .addCase(deleteProductRequest.fulfilled, deleteProductReducer);
   },
 });
 
 
 export const selectToken = (state) => state.auth.token;
 export const selectUser = (state) => state.auth.user;
-export const selectProductsByUser = (state) => state.auth.products;
+export const selectProductsByUser = (state) =>
+  [...state.auth.products].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
 export const isUserAuthenticated = (state) => [state.auth.token, state.auth.user].every(Boolean);
 
 export default authSlice.reducer;

@@ -1,18 +1,28 @@
 import useTitle from "@/hooks/useTitle.js";
 import SearchForm from "@/components/form/SearchForm.jsx";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectProductsByUser, selectUser } from "@/features/auth/authSlice.js";
 import formatDate from "@/utils/formatDate.js";
 import ProductListItem from "@/components/product/ProductListItem.jsx";
 import useLogout from "@/hooks/useLogout.js";
+import { useEffect } from "react";
+import { fetchProductsByUser } from "@/features/auth/authThunks.js";
 
 const Profile = () => {
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
   const products = useSelector(selectProductsByUser);
   const logout = useLogout();
 
   useTitle(`Hello ${user.username} | ShopSwift`);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      await dispatch(fetchProductsByUser()).unwrap();
+    };
+    fetchProducts();
+  }, [dispatch]);
 
   return (
     <div className="section-container">
@@ -76,6 +86,7 @@ const Profile = () => {
                 <ProductListItem
                   productId={product._id}
                   key={product._id}
+                  self
                 />
               ))
             }

@@ -11,6 +11,7 @@ const useLogout = () => {
       await dispatch(sendLogoutRequest()).unwrap();
       navigate("/login", { replace: true });
     } catch (err) {
+      // TODO: send error message in toast
     }
   };
 };

@@ -20,7 +20,7 @@ const UserDetail = () => {
   const user = useSelector(selectUserById);
   const products = useSelector(selectUserProducts);
 
-  useTitle(`${user?.username || "Profile"} Insights | ShopSwift`);
+  useTitle(`About ${user?.username || "Profile"} | ShopSwift`);
 
   useEffect(() => {
     const fetchUserAndProducts = async () => {

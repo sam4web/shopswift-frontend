@@ -1,9 +1,11 @@
 import { useSelector } from "react-redux";
 import { selectProductById } from "@/features/product/productSlice.js";
 import { NavLink } from "react-router-dom";
+import useDeleteProduct from "@/hooks/useDeleteProduct.js";
 
-const ProductListItem = ({ productId }) => {
+const ProductListItem = ({ productId, self }) => {
   const product = useSelector((state) => selectProductById(state, productId));
+  const deleteProduct = useDeleteProduct(productId);
 
   const formatDescription = (description) => {
     if (description.length < 180) return description;
@@ -38,6 +40,23 @@ const ProductListItem = ({ productId }) => {
           >
             <button className="btn-secondary px-3 py-1.5">Detail</button>
           </NavLink>
+
+          {self &&
+            <>
+              <a href="" className="inline-block">
+                <button
+                  className="btn bg-emerald-500 border-emerald-500 px-3 py-1.5"
+                >
+                  Edit
+                </button>
+              </a>
+              <button
+                className="btn bg-rose-500 border-rose-500 px-3 py-1.5"
+                onClick={deleteProduct}
+              >
+                Delete
+              </button>
+            </>}
         </div>
       </div>
     </div>

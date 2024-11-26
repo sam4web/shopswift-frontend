@@ -9,4 +9,5 @@ export const setUserReducer = (state, action) => {
 export const clearUserReducer = (state, action) => {
   state.token = null;
   state.user = null;
+  state.products = [];
 };

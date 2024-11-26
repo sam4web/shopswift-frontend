@@ -1,16 +1,22 @@
 import { useSelector } from "react-redux";
 import { selectProductById } from "@/features/product/productSlice.js";
 import useTitle from "@/hooks/useTitle.js";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import NotFound from "@/pages/site/NotFound.jsx";
-import { selectUser } from "@/features/auth/authSlice.js";
+import { isUserAuthenticated, selectUser } from "@/features/auth/authSlice.js";
 import getCategoryTitle from "@/utils/getCategoryTitle.js";
 import formatDate from "@/utils/formatDate.js";
+import useDeleteProduct from "@/hooks/useDeleteProduct.js";
 
 const ProductDetail = () => {
   const { productId } = useParams();
+  const navigate = useNavigate();
+  const deleteProduct = useDeleteProduct(productId);
   const product = useSelector(state => selectProductById(state, productId));
   const user = useSelector(selectUser);
+  const isAuthenticated = useSelector(isUserAuthenticated);
+
+  const productBelongsToUser = isAuthenticated ? product.createdBy.id === user.id : false;
 
   useTitle(`${product?.name || "Not found"} | ShopSwift`);
 
@@ -26,7 +32,7 @@ const ProductDetail = () => {
             className="rounded-lg shadow-md"
             alt={product.image.name}
           />
-          {product.createdBy.id !== user.id &&
+          {!productBelongsToUser &&
             <p className="text-lg text-dark-secondary dark:text-light">
               Provided by {" "}
               <NavLink
@@ -39,7 +45,7 @@ const ProductDetail = () => {
           }
         </div>
 
-        <div className="flex justify-between items-end flex-col">
+        <div className="flex justify-between flex-col">
           <div className="space-y-4 lg:space-y-6">
             <div className="space-y-2.5">
               <div className="flex-between text-gray-dark dark:text-light">
@@ -72,21 +78,29 @@ const ProductDetail = () => {
             </p>
           </div>
 
-          {product.createdBy.id === user.id ?
-            <div className="space-x-2">
-              <button
-                className="btn bg-emerald-500 border-emerald-500 py-2 font-medium"
-              >
-                Edit
+          <div className="flex justify-end">
+            {productBelongsToUser ?
+              <div className="space-x-2">
+                <button
+                  className="btn bg-emerald-500 border-emerald-500 py-2 font-medium"
+                >
+                  Edit
+                </button>
+                <button
+                  className="btn bg-rose-500 border-rose-500 py-2 font-medium"
+                  onClick={() => {
+                    deleteProduct();
+                    navigate("/products");
+                  }}
+                >
+                  Delete
+                </button>
+              </div> :
+              <button className="btn-secondary py-3 font-medium">
+                Add to Cart
               </button>
-              <button className="btn bg-rose-500 border-rose-500 py-2 font-medium">
-                Delete
-              </button>
-            </div> :
-            <button className="btn-secondary py-3 font-medium">
-              Add to Cart
-            </button>
-          }
+            }
+          </div>
         </div>
       </section>
 

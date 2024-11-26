@@ -1,14 +1,25 @@
 import { useState } from "react";
 import ProductForm from "@/components/form/ProductForm.jsx";
 import useTitle from "@/hooks/useTitle.js";
+import { createProductEntry } from "@/features/product/productThunks.js";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const ProductCreate = () => {
+  const dispatch = useDispatch();
+  const [error, setError] = useState();
+  const navigate = useNavigate();
+
   useTitle("New Product | ShopSwift");
 
-  const [error, setError] = useState();
-
-  const handleSubmit = (productData) => {
-    console.log(productData);
+  const handleSubmit = async (productData) => {
+    try {
+      const product = await dispatch(createProductEntry(productData)).unwrap();
+      console.log(product);
+      navigate(`/products/${product._id}`);
+    } catch (err) {
+      setError(err);
+    }
   };
 
   return (

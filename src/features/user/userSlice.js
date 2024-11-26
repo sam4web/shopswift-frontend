@@ -23,6 +23,7 @@ export const userSlice = createSlice({
 
 
 export const selectUserById = (state) => state.user.user;
-export const selectUserProducts = (state) => state.user.products;
+export const selectUserProducts = (state) =>
+  [...state.user.products].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
 
 export default userSlice.reducer;

@@ -2,14 +2,16 @@ import { useState } from "react";
 import { CATEGORIES } from "@/constants/index.js";
 
 const ProductForm = ({ create, handleSubmit }) => {
-  const [formData, setFormData] = useState();
+  const [productData, setProductData] = useState();
+  const [imageFile, setImageFile] = useState(null);
   const [errors, setErrors] = useState();
 
   const validateForm = () => {
     const newErrors = {};
-    if (!formData?.name) newErrors.name = "Name is required.";
-    if (!formData?.price) newErrors.price = "Price is required.";
-    if (!formData?.category) newErrors.category = "Select a category.";
+    if (!productData?.name) newErrors.name = "Name is required.";
+    if (!productData?.price) newErrors.price = "Price is required.";
+    if (!productData?.category) newErrors.category = "Select a category.";
+    if (!imageFile) newErrors.image = "Image is required.";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0 && canSubmit;
   };
@@ -17,16 +19,27 @@ const ProductForm = ({ create, handleSubmit }) => {
   const handleChange = (e) => {
     setErrors(null);
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setProductData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleFileChange = (e) => {
+    setErrors(null);
+    if (e.target.files) setImageFile(e.target.files[0]);
   };
 
   const submitForm = (e) => {
     e.preventDefault();
     if (!validateForm()) return;
+    const formData = new FormData();
+    for (const [key, value] of Object.entries(productData)) {
+      formData.append(key, value);
+    }
+    formData.append("image", imageFile);
     handleSubmit(formData);
+    setProductData(null);
   };
 
-  const canSubmit = [formData?.name, formData?.price, formData?.category].every(Boolean);
+  const canSubmit = [productData?.name, productData?.price, productData?.category].every(Boolean);
 
   return (
     <form encType="multipart/form-data" className="space-y-6" onSubmit={submitForm}>
@@ -37,7 +50,7 @@ const ProductForm = ({ create, handleSubmit }) => {
           name="name"
           id="name"
           onChange={handleChange}
-          value={formData?.name || ""}
+          value={productData?.name || ""}
         />
         <p className="err-msg">{errors?.name}</p>
       </div>
@@ -49,7 +62,7 @@ const ProductForm = ({ create, handleSubmit }) => {
           name="price"
           id="price"
           onChange={handleChange}
-          value={formData?.price || ""}
+          value={productData?.price || ""}
         />
         <p className="err-msg">{errors?.price}</p>
       </div>
@@ -60,7 +73,7 @@ const ProductForm = ({ create, handleSubmit }) => {
           name="description"
           id="description"
           onChange={handleChange}
-          value={formData?.description || ""}
+          value={productData?.description || ""}
         />
       </div>
 
@@ -92,6 +105,7 @@ const ProductForm = ({ create, handleSubmit }) => {
           accept="image/*"
           name="image"
           id="image"
+          onChange={handleFileChange}
         />
         <p className="err-msg">{errors?.image}</p>
       </div>
