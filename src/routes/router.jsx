@@ -17,6 +17,7 @@ import PrefetchProducts from "@/components/product/PrefetchProducts.jsx";
 import ProductDetail from "@/pages/product/ProductDetail.jsx";
 import AuthRequired from "@/components/auth/AuthRequired.jsx";
 import AuthPersist from "@/components/auth/AuthPersist.jsx";
+import UserDetail from "@/pages/user/UserDetail.jsx";
 
 const router = createBrowserRouter(createRoutesFromElements(
   <>
@@ -25,6 +26,7 @@ const router = createBrowserRouter(createRoutesFromElements(
         <Route element={<PrefetchProducts />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
+          <Route path="user/:userId" element={<UserDetail />} />
           <Route path="products">
             <Route index element={<ProductList />} />
             <Route path=":productId" element={<ProductDetail />} />

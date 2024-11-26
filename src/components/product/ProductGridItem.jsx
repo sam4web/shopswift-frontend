@@ -8,7 +8,7 @@ const ProductGridItem = ({ productId, bgStyle }) => {
   return (
     <NavLink to={`/products/${productId}`}>
       <div
-        className={`shadow-sm rounded-xl px-5 py-3 space-y-3.5 text-center dark:bg-secondary-dark transition h-full flex-between flex-col ${bgStyle || "bg-light dark:bg-dark-primary"}`}
+        className={`shadow-sm rounded-xl px-5 py-3 space-y-3.5 text-center dark:bg-secondary-dark transition flex-between flex-col ${bgStyle || "bg-light dark:bg-dark-primary"}`}
       >
         <img
           src={`data:image/png;base64, ${product.image.data}`}

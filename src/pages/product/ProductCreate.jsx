@@ -30,7 +30,6 @@ const ProductCreate = () => {
       }
 
       <ProductForm create handleSubmit={handleSubmit} />
-
     </div>
   );
 };

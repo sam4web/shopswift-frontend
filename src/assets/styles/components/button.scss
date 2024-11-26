@@ -10,7 +10,7 @@
   }
 
   &-secondary {
-    @apply btn bg-dark-primary border-dark-primary;
+    @apply btn bg-dark-primary border-dark-primary dark:bg-light dark:text-dark-primary dark:hover:text-light dark:hover:border-light;
   }
 }
 

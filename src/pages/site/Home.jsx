@@ -50,13 +50,14 @@ const Home = () => {
           <div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6 mt-14"
           >
-            {products && products.map(product => (
-              <ProductGridItem
-                productId={product._id}
-                key={product._id}
-                bgStyle={"bg-white dark:bg-dark-body"}
-              />
-            ))}
+            {products &&
+              products.slice(0, 3).map(product => (
+                <ProductGridItem
+                  productId={product._id}
+                  key={product._id}
+                  bgStyle={"bg-white dark:bg-dark-body"}
+                />
+              ))}
           </div>
         </div>
       </section>

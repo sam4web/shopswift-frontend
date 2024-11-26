@@ -8,18 +8,17 @@ const PrefetchProducts = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
 
-  const fetchProducts = async () => {
-    try {
-      await dispatch(fetchProductsQuery()).unwrap();
-    } catch (err) {
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        await dispatch(fetchProductsQuery()).unwrap();
+      } catch (err) {
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchProducts();
-  }, []);
+  }, [dispatch]);
 
   if (loading) return <Spinner />;
 

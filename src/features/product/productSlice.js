@@ -18,7 +18,9 @@ const productSlice = createSlice({
   },
 });
 
-export const selectProducts = (state) => state.product.products;
+export const selectProducts = (state) =>
+  [...state.product.products].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+;
 export const selectProductById = (state, productId) => state.product.products.find(product => product._id === productId);
 
 export default productSlice.reducer;

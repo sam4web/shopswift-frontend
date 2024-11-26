@@ -1,18 +1,46 @@
-import useTitle from "@/hooks/useTitle.js";
-import SearchForm from "@/components/form/SearchForm.jsx";
-import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectProductsByUser, selectUser } from "@/features/auth/authSlice.js";
 import formatDate from "@/utils/formatDate.js";
+import SearchForm from "@/components/form/SearchForm.jsx";
+import { useParams } from "react-router-dom";
 import ProductListItem from "@/components/product/ProductListItem.jsx";
-import useLogout from "@/hooks/useLogout.js";
+import useTitle from "@/hooks/useTitle.js";
+import { useEffect, useState } from "react";
+import Spinner from "@/components/common/Spinner.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUserById, selectUserProducts } from "@/features/user/userSlice.js";
+import { fetchUserById, fetchUserProducts } from "@/features/user/userThunks.js";
+import NotFound from "@/pages/site/NotFound.jsx";
 
-const Profile = () => {
-  const user = useSelector(selectUser);
-  const products = useSelector(selectProductsByUser);
-  const logout = useLogout();
+const UserDetail = () => {
 
-  useTitle(`Hello ${user.username} | ShopSwift`);
+  const { userId } = useParams();
+  const [loading, setLoading] = useState(true);
+  const [errors, setErrors] = useState();
+  const dispatch = useDispatch();
+
+  const user = useSelector(selectUserById);
+  const products = useSelector(selectUserProducts);
+
+  useTitle(`${user?.username || "Profile"} Insights | ShopSwift`);
+
+  useEffect(() => {
+    const fetchUserAndProducts = async () => {
+      try {
+        await dispatch(fetchUserById(userId)).unwrap();
+        await dispatch(fetchUserProducts(userId)).unwrap();
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUserAndProducts();
+  }, [dispatch, userId]);
+
+  if (loading)
+    return <Spinner />;
+
+  if (!user)
+    return <NotFound message="Sorry, the user you're looking for doesn't exist." />;
 
   return (
     <div className="section-container">
@@ -23,7 +51,7 @@ const Profile = () => {
           <div
             className="px-3 py-5 lg:px-5 lg:py-7 bg-light dark:bg-dark-primary transition rounded-xl shadow-md"
           >
-            <div className="space-y-1 mb-4">
+            <div className="space-y-1">
               <h3
                 className="text-2xl dark:text-light text-dark-primary font-medium transition"
               >
@@ -39,22 +67,9 @@ const Profile = () => {
                 </span>
               </p>
             </div>
-
-            <button
-              className="btn bg-transparent border-rose-500 text-dark-primary py-1.5 px-5"
-              onClick={logout}
-            >
-              Logout
-            </button>
           </div>
 
           <SearchForm />
-
-          <div>
-            <NavLink to="/products/create">
-              <button className="btn-secondary w-full">Create Product</button>
-            </NavLink>
-          </div>
         </aside>
 
         <section className="col-span-2">
@@ -62,7 +77,7 @@ const Profile = () => {
             <h3
               className="text-2xl lg:text-3xl dark:text-light text-gray font-medium transition"
             >
-              My Products
+              Products
             </h3>
             <p className="text-lg text-gray dark:text-light">
               Total products: {products.length}
@@ -86,4 +101,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default UserDetail;
