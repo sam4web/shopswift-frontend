@@ -9,7 +9,12 @@ const initialState = {
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    clearUserState: (state, action) => {
+      state.user = null;
+      state.products = [];
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserById.fulfilled, (state, action) => {
@@ -25,5 +30,7 @@ export const userSlice = createSlice({
 export const selectUserById = (state) => state.user.user;
 export const selectUserProducts = (state) =>
   [...state.user.products].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+
+export const { clearUserState } = userSlice.actions;
 
 export default userSlice.reducer;

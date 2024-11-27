@@ -6,7 +6,7 @@ import useTitle from "@/hooks/useTitle.js";
 import { useEffect, useState } from "react";
 import Spinner from "@/components/common/Spinner.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUserById, selectUserProducts } from "@/features/user/userSlice.js";
+import { clearUserState, selectUserById, selectUserProducts } from "@/features/user/userSlice.js";
 import { fetchUserById, fetchUserProducts } from "@/features/user/userThunks.js";
 import NotFound from "@/pages/site/NotFound.jsx";
 
@@ -34,6 +34,8 @@ const UserDetail = () => {
       }
     };
     fetchUserAndProducts();
+
+    return () => dispatch(clearUserState());
   }, [dispatch, userId]);
 
   if (loading)

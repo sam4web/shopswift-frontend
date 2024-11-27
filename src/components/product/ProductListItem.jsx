@@ -2,10 +2,12 @@ import { useSelector } from "react-redux";
 import { selectProductById } from "@/features/product/productSlice.js";
 import { NavLink } from "react-router-dom";
 import useDeleteProduct from "@/hooks/useDeleteProduct.js";
+import useRemoveFromCart from "@/hooks/useRemoveFromCart.js";
 
-const ProductListItem = ({ productId, self }) => {
+const ProductListItem = ({ productId, self, cartItem }) => {
   const product = useSelector((state) => selectProductById(state, productId));
   const deleteProduct = useDeleteProduct(productId);
+  const removeFromCart = useRemoveFromCart(productId);
 
   const formatDescription = (description) => {
     if (description.length < 180) return description;
@@ -57,6 +59,15 @@ const ProductListItem = ({ productId, self }) => {
                 Delete
               </button>
             </>}
+
+          {cartItem &&
+            <button
+              className="btn bg-rose-500 border-rose-500 px-3 py-1.5"
+              onClick={removeFromCart}
+            >
+              Remove
+            </button>
+          }
         </div>
       </div>
     </div>

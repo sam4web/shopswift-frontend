@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectProductById } from "@/features/product/productSlice.js";
 import useTitle from "@/hooks/useTitle.js";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
@@ -7,10 +7,12 @@ import { isUserAuthenticated, selectUser } from "@/features/auth/authSlice.js";
 import getCategoryTitle from "@/utils/getCategoryTitle.js";
 import formatDate from "@/utils/formatDate.js";
 import useDeleteProduct from "@/hooks/useDeleteProduct.js";
+import { sendAddToCartRequest } from "@/features/cart/cartThunks.js";
 
 const ProductDetail = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const deleteProduct = useDeleteProduct(productId);
   const product = useSelector(state => selectProductById(state, productId));
   const user = useSelector(selectUser);
@@ -19,6 +21,18 @@ const ProductDetail = () => {
   const productBelongsToUser = isAuthenticated ? product.createdBy.id === user.id : false;
 
   useTitle(`${product?.name || "Not found"} | ShopSwift`);
+
+  const addItemToCart = async () => {
+    if (!isAuthenticated) return navigate("/login");
+
+    try {
+      await dispatch(sendAddToCartRequest(productId)).unwrap();
+      return navigate("/cart");
+    } catch (err) {
+      console.log(err);
+      // TODO: send error message in toast
+    }
+  };
 
   if (!product)
     return <NotFound message="Sorry, the product you're looking for doesn't exist." />;
@@ -98,7 +112,10 @@ const ProductDetail = () => {
                   Delete
                 </button>
               </div> :
-              <button className="btn-secondary py-3 font-medium">
+              <button
+                className="btn-secondary py-3 font-medium"
+                onClick={addItemToCart}
+              >
                 Add to Cart
               </button>
             }

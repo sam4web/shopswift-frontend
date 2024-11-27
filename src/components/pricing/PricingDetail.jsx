@@ -5,7 +5,7 @@ const PricingDetail = ({ pricing }) => {
     >
       <div className="border-b pb-1.5 flex justify-between">
         <p className="text-gray dark:text-light">Subtotal</p>
-        <p className="text-gray-dark dark:text-light">{pricing?.sub_total || 0}</p>
+        <p className="text-gray-dark dark:text-light">{pricing?.subTotal || 0}</p>
       </div>
       <div className="border-b pb-1.5 flex justify-between">
         <p className="text-gray dark:text-light">Shipping</p>
@@ -20,7 +20,7 @@ const PricingDetail = ({ pricing }) => {
         <p className="w-full text-gray text-lg font-medium dark:text-light">
           Order Total
         </p>
-        <p className="text-gray-dark dark:text-light">{pricing?.order_total || 0}</p>
+        <p className="text-gray-dark dark:text-light">{pricing?.orderTotal || 0}</p>
       </div>
     </div>
 

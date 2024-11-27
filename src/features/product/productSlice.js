@@ -9,7 +9,6 @@ import { deleteProductReducer } from "@/features/product/productReducers.js";
 
 const initialState = {
   products: [],
-  status: "idle", // 'idle' | 'loading' | 'success' | 'failed'
   error: null,
 };
 
