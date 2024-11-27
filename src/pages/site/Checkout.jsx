@@ -1,9 +1,10 @@
 import PricingDetail from "@/components/pricing/PricingDetail.jsx";
 import { useState } from "react";
 import useTitle from "@/hooks/useTitle.js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { doesItemExists, selectPricingDetail } from "@/features/cart/cartSlice.js";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { sendPlaceOrderRequest } from "@/features/order/orderThunks.js";
 
 const Checkout = () => {
   useTitle("Checkout | ShopSwift");
@@ -11,6 +12,8 @@ const Checkout = () => {
   const [formData, setFormData] = useState(null);
   const [errors, setErrors] = useState(null);
   const pricingDetail = useSelector(selectPricingDetail);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const itemExists = useSelector(doesItemExists);
   if (!itemExists)
@@ -18,7 +21,7 @@ const Checkout = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!formData?.name) newErrors.name = "Name is required.";
+    if (!formData?.firstName) newErrors.name = "Name is required.";
     if (!formData?.address) newErrors.address = "Address is required.";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -30,12 +33,18 @@ const Checkout = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-    console.log(formData);
-  };
 
+    try {
+      await dispatch(sendPlaceOrderRequest(formData)).unwrap();
+      navigate("/orders");
+    } catch (err) {
+      console.log(err);
+      // TODO: send error message in toast
+    }
+  };
 
   return (
     <section>
@@ -51,7 +60,7 @@ const Checkout = () => {
 
         <section className="md:grid grid-cols-4 md:gap-7 space-y-10 md:space-y-0 mt-6">
           <aside className="col-span-2">
-            <form className="space-y-3.5" onClick={handleSubmit}>
+            <form className="space-y-3.5" onSubmit={handleSubmit}>
               <h4
                 className="text-xl dark:text-light text-gray font-medium transition pb-1.5"
               >
@@ -59,14 +68,14 @@ const Checkout = () => {
               </h4>
 
               <div>
-                <label htmlFor="name" className="input-label"> First Name </label>
+                <label htmlFor="firstName" className="input-label"> First Name </label>
                 <input
                   className="input-field-lg"
                   type="text"
-                  name="name"
-                  id="name"
+                  name="firstName"
+                  id="firstName"
                   onChange={handleChange}
-                  value={formData?.name || ""}
+                  value={formData?.firstName || ""}
                 />
                 <p className="err-msg">{errors?.name}</p>
               </div>
@@ -84,7 +93,9 @@ const Checkout = () => {
                 <p className="err-msg">{errors?.address}</p>
               </div>
 
-              <button className="btn-primary w-full">Place Your Order</button>
+              <button className="btn-primary w-full" type="submit">
+                Place Your Order
+              </button>
             </form>
           </aside>
 

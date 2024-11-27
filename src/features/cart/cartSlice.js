@@ -14,7 +14,12 @@ const initialState = {
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
-  reducers: {},
+  reducers: {
+    emptyCart: (state, action) => {
+      state.cartItems = [];
+      state.pricingDetail = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchItemsFromCart.fulfilled, (state, action) => {
@@ -22,6 +27,12 @@ export const cartSlice = createSlice({
       })
       .addCase(fetchPricingDetail.fulfilled, (state, action) => {
         state.pricingDetail = action.payload;
+      })
+      .addCase(fetchItemsFromCart.rejected, (state, action) => {
+        state.cartItems = [];
+      })
+      .addCase(fetchPricingDetail.rejected, (state, action) => {
+        state.pricingDetail = null;
       })
       .addCase(sendAddToCartRequest.fulfilled, (state, action) => {
         state.cartItems.unshift({ ...action.payload });
@@ -38,5 +49,7 @@ export const doesItemExists = (state) => Boolean(state.cart.cartItems?.length);
 export const selectCartItems = (state) =>
   [...state.cart.cartItems].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
 export const selectPricingDetail = (state) => state.cart.pricingDetail;
+
+export const { emptyCart } = cartSlice.actions;
 
 export default cartSlice.reducer;
