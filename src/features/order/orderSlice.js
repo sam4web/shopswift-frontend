@@ -8,7 +8,11 @@ const initialState = {
 export const orderSlice = createSlice({
   name: "order",
   initialState,
-  reducers: {},
+  reducers: {
+    emptyOrders: (state, action) => {
+      state.orders = [];
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchOrderQuery.fulfilled, (state, action) => {
@@ -25,5 +29,5 @@ export const doesOrderExists = (state) => Boolean(state.order.orders?.length);
 export const selectOrders = (state) =>
   [...state.order.orders].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
 
-
+export const { emptyOrders } = orderSlice.actions;
 export default orderSlice.reducer;

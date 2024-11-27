@@ -51,7 +51,7 @@ const Profile = () => {
             </div>
 
             <button
-              className="btn bg-transparent border-rose-500 text-dark-primary py-1.5 px-5"
+              className="btn bg-transparent border-rose-500 text-dark-primary dark:text-light py-1.5 px-5"
               onClick={logout}
             >
               Logout
