@@ -5,6 +5,7 @@ import { validatePassword, validateUsername } from "@/utils/validateCredentials.
 import { sendLoginRequest } from "@/features/auth/authThunks.js";
 import { useDispatch, useSelector } from "react-redux";
 import { isUserAuthenticated } from "@/features/auth/authSlice.js";
+import { toast } from "react-toastify";
 
 const Login = () => {
   useTitle("Sign in | ShopSwift");
@@ -37,8 +38,13 @@ const Login = () => {
 
   const loginUser = async () => {
     try {
+      const toastId = toast.info("Logging in, please wait...");
       await dispatch(sendLoginRequest(formData)).unwrap();
+      toast.dismiss(toastId);
+      toast.success("Successfully logged in.");
     } catch (err) {
+      toast.dismiss();
+      toast.error(err);
       setErrors(prev => ({ ...prev, message: err }));
     }
   };

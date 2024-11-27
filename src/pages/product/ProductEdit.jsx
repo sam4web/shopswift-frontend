@@ -7,6 +7,7 @@ import { selectProductById } from "@/features/product/productSlice.js";
 import { isUserAuthenticated, selectUser } from "@/features/auth/authSlice.js";
 import NotFound from "@/pages/site/NotFound.jsx";
 import { updateProductRecord } from "@/features/product/productThunks.js";
+import { toast } from "react-toastify";
 
 const ProductEdit = () => {
   const { productId } = useParams();
@@ -24,16 +25,19 @@ const ProductEdit = () => {
     return <NotFound message="Sorry, the product you're looking for doesn't exist." />;
 
   const productBelongsToUser = isAuthenticated ? product.createdBy.id === user.id : false;
-  if (!productBelongsToUser)
-    // TODO: toast msg saying "This product doesn't belong to you."
+  if (!productBelongsToUser) {
+    toast.error("Cannot update product. This product does not belong to you.");
     return <Navigate to={"/products"} replace={true} />;
+  }
 
   const handleSubmit = async (productData) => {
     try {
+      toast.info("Updating product, please wait.");
       await dispatch(updateProductRecord({ data: productData, id: productId })).unwrap();
+      toast.success("Product updated successfully.");
       navigate(`/products/${productId}`);
     } catch (err) {
-      console.log(err);
+      toast.error(err);
       setError(err);
     }
   };

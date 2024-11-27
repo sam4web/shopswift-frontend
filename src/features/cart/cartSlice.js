@@ -28,15 +28,8 @@ export const cartSlice = createSlice({
       .addCase(fetchPricingDetail.fulfilled, (state, action) => {
         state.pricingDetail = action.payload;
       })
-      .addCase(fetchItemsFromCart.rejected, (state, action) => {
-        state.cartItems = [];
-      })
-      .addCase(fetchPricingDetail.rejected, (state, action) => {
-        state.pricingDetail = null;
-      })
       .addCase(sendAddToCartRequest.fulfilled, (state, action) => {
         state.cartItems.unshift({ ...action.payload });
-        console.log(action.payload);
       })
       .addCase(sendRemoveFromCartRequest.fulfilled, (state, action) => {
         state.cartItems = state.cartItems.filter(item => item._id !== action.payload);

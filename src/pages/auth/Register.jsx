@@ -5,6 +5,7 @@ import { validateEmail, validatePassword, validateUsername } from "@/utils/valid
 import { useDispatch, useSelector } from "react-redux";
 import { sendRegisterRequest } from "@/features/auth/authThunks.js";
 import { isUserAuthenticated } from "@/features/auth/authSlice.js";
+import { toast } from "react-toastify";
 
 const Register = () => {
   useTitle("Create Account | ShopSwift");
@@ -39,10 +40,16 @@ const Register = () => {
 
   const canSubmit = [formData?.username, formData?.email, formData?.password, formData?.password2].every(Boolean);
 
+
   const registerUser = async () => {
     try {
+      const toastId = toast.info("Logging in, please wait...");
       await dispatch(sendRegisterRequest(formData)).unwrap();
+      toast.dismiss(toastId);
+      toast.success("User created successfully.");
     } catch (err) {
+      toast.dismiss();
+      toast.error(err);
       setErrors(prev => ({ ...prev, message: err }));
     }
   };

@@ -8,6 +8,7 @@ import getCategoryTitle from "@/utils/getCategoryTitle.js";
 import formatDate from "@/utils/formatDate.js";
 import useDeleteProduct from "@/hooks/useDeleteProduct.js";
 import { sendAddToCartRequest } from "@/features/cart/cartThunks.js";
+import { toast } from "react-toastify";
 
 const ProductDetail = () => {
   const { productId } = useParams();
@@ -23,14 +24,18 @@ const ProductDetail = () => {
   useTitle(`${product?.name || "Not found"} | ShopSwift`);
 
   const addItemToCart = async () => {
-    if (!isAuthenticated) return navigate("/login");
+    if (!isAuthenticated) {
+      toast.error("Please log in before adding items to the cart.");
+      return navigate("/login");
+    }
 
     try {
+      toast.info("Adding item to cart, please wait...");
       await dispatch(sendAddToCartRequest(productId)).unwrap();
+      toast.success("Item successfully added to your cart.");
       return navigate("/cart");
     } catch (err) {
-      console.log(err);
-      // TODO: send error message in toast
+      toast.error(err);
     }
   };
 

@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit/react";
 import api from "@/api/axiosInstance.js";
+import { emptyCart } from "@/features/cart/cartSlice.js";
 
 export const fetchOrderQuery = createAsyncThunk("order/fetchOrder", async (_, { rejectWithValue, getState }) => {
   try {
@@ -15,13 +16,14 @@ export const fetchOrderQuery = createAsyncThunk("order/fetchOrder", async (_, { 
 });
 
 export const sendPlaceOrderRequest = createAsyncThunk("order/placeOrder", async (
-  orderData, { rejectWithValue, getState }) => {
+  orderData, { rejectWithValue, getState, dispatch }) => {
   try {
     const response = await api.post("/api/order", { ...orderData }, {
       headers: {
         "Authorization": `Bearer ${getState().auth.token}`,
       },
     });
+    dispatch(emptyCart());
     return response.data;
   } catch (err) {
     return rejectWithValue(err.response?.data?.message || err.message);

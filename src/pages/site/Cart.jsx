@@ -7,6 +7,7 @@ import { fetchItemsFromCart, fetchPricingDetail } from "@/features/cart/cartThun
 import { doesItemExists, selectCartItems, selectPricingDetail } from "@/features/cart/cartSlice.js";
 import { isUserAuthenticated } from "@/features/auth/authSlice.js";
 import ProductListItem from "@/components/product/ProductListItem.jsx";
+import { toast } from "react-toastify";
 
 const Cart = () => {
   useTitle("Cart | ShopSwift");
@@ -22,8 +23,7 @@ const Cart = () => {
         await dispatch(fetchItemsFromCart()).unwrap();
         await dispatch(fetchPricingDetail()).unwrap();
       } catch (err) {
-        console.log(err);
-        // TODO: send error message in toast
+        toast.error(err);
       }
     };
     fetchCartItemsAndPricingDetail();

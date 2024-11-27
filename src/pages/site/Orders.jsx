@@ -4,6 +4,7 @@ import { doesOrderExists, selectOrders } from "@/features/order/orderSlice.js";
 import formatDate from "@/utils/formatDate.js";
 import { useEffect } from "react";
 import { fetchOrderQuery } from "@/features/order/orderThunks.js";
+import { toast } from "react-toastify";
 
 const Orders = () => {
   useTitle("Orders | ShopSwift");
@@ -18,7 +19,7 @@ const Orders = () => {
         await dispatch(fetchOrderQuery()).unwrap();
       } catch (err) {
         console.log(err);
-        // TODO: send error message in toast
+        toast.error(err);
       }
     };
     fetchOrders();

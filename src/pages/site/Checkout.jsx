@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { doesItemExists, selectPricingDetail } from "@/features/cart/cartSlice.js";
 import { Navigate, useNavigate } from "react-router-dom";
 import { sendPlaceOrderRequest } from "@/features/order/orderThunks.js";
+import { toast } from "react-toastify";
 
 const Checkout = () => {
   useTitle("Checkout | ShopSwift");
@@ -38,11 +39,12 @@ const Checkout = () => {
     if (!validateForm()) return;
 
     try {
+      toast.info("Placing your order, please wait...");
       await dispatch(sendPlaceOrderRequest(formData)).unwrap();
+      toast.success("Your order has been successfully placed.");
       navigate("/orders");
     } catch (err) {
-      console.log(err);
-      // TODO: send error message in toast
+      toast.error(err);
     }
   };
 

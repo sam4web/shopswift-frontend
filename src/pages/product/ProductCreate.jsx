@@ -4,6 +4,7 @@ import useTitle from "@/hooks/useTitle.js";
 import { createProductEntry } from "@/features/product/productThunks.js";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const ProductCreate = () => {
   const dispatch = useDispatch();
@@ -14,9 +15,12 @@ const ProductCreate = () => {
 
   const handleSubmit = async (productData) => {
     try {
+      toast.info("Creating product, please wait.");
       const product = await dispatch(createProductEntry(productData)).unwrap();
+      toast.success("Product created successfully.");
       navigate(`/products/${product._id}`);
     } catch (err) {
+      toast.error(err);
       setError(err);
     }
   };

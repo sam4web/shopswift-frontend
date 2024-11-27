@@ -22,6 +22,8 @@ export const orderSlice = createSlice({
 
 
 export const doesOrderExists = (state) => Boolean(state.order.orders?.length);
-export const selectOrders = (state) => state.order.orders;
+export const selectOrders = (state) =>
+  [...state.order.orders].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+
 
 export default orderSlice.reducer;
