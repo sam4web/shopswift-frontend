@@ -27,7 +27,7 @@ const Cart = () => {
       }
     };
     fetchCartItemsAndPricingDetail();
-  }, []);
+  }, [dispatch]);
 
   return (
     <section>
@@ -62,7 +62,6 @@ const Cart = () => {
                   />
                 ))
               }
-
             </div>
           </section>
         }

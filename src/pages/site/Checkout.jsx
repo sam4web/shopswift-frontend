@@ -1,12 +1,20 @@
 import PricingDetail from "@/components/pricing/PricingDetail.jsx";
 import { useState } from "react";
 import useTitle from "@/hooks/useTitle.js";
+import { useSelector } from "react-redux";
+import { doesItemExists, selectPricingDetail } from "@/features/cart/cartSlice.js";
+import { Navigate } from "react-router-dom";
 
 const Checkout = () => {
   useTitle("Checkout | ShopSwift");
 
   const [formData, setFormData] = useState(null);
   const [errors, setErrors] = useState(null);
+  const pricingDetail = useSelector(selectPricingDetail);
+
+  const itemExists = useSelector(doesItemExists);
+  if (!itemExists)
+    return <Navigate to={"/cart"} replace={true} />;
 
   const validateForm = () => {
     const newErrors = {};
@@ -41,7 +49,6 @@ const Checkout = () => {
         </section>
         <hr className="line-break" />
 
-        {/* if user is authenticated & items exists */}
         <section className="md:grid grid-cols-4 md:gap-7 space-y-10 md:space-y-0 mt-6">
           <aside className="col-span-2">
             <form className="space-y-3.5" onClick={handleSubmit}>
@@ -82,7 +89,9 @@ const Checkout = () => {
           </aside>
 
           <aside className="col-span-2">
-            <PricingDetail />
+            {pricingDetail &&
+              <PricingDetail pricing={pricingDetail} />
+            }
           </aside>
         </section>
       </div>
