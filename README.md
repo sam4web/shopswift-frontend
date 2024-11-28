@@ -22,8 +22,6 @@ and secure user authentication.
 
 ## Technologies Used
 
-## Technologies Used
-
 - **[React.js](https://reactjs.org/)**: For dynamic, interactive user interfaces.
 - **[TailwindCSS](https://tailwindcss.com/)**: Utility-first CSS for responsive designs.
 - **[Redux](https://redux.js.org/)**: Manages global state seamlessly.
