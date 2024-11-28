@@ -4,10 +4,12 @@ import { useSelector } from "react-redux";
 import { selectProducts } from "@/features/product/productSlice.js";
 import ProductGridItem from "@/components/product/ProductGridItem.jsx";
 import { NavLink } from "react-router-dom";
+import useFilterProducts from "@/hooks/useFilterProducts.js";
 
 const Home = () => {
   useTitle("ShopSwift | Explore Shop Thrive");
   const products = useSelector(selectProducts);
+  const filteredProducts = useFilterProducts(products);
 
   return (
     <>
@@ -51,7 +53,7 @@ const Home = () => {
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6 mt-14"
           >
             {products &&
-              products.slice(0, 3).map(product => (
+              filteredProducts.slice(0, 3).map(product => (
                 <ProductGridItem
                   productId={product._id}
                   key={product._id}

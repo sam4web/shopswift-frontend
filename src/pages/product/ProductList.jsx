@@ -6,11 +6,13 @@ import ProductGridItem from "@/components/product/ProductGridItem.jsx";
 import { useSelector } from "react-redux";
 import { selectProducts } from "@/features/product/productSlice.js";
 import ProductListItem from "@/components/product/ProductListItem.jsx";
+import useFilterProducts from "@/hooks/useFilterProducts.js";
 
 const ProductList = () => {
   useTitle("Products | ShopSwift");
   const [gridLayout, setGridLayout] = useState(localStorage.getItem("layout") === "grid");
   const products = useSelector(selectProducts);
+  const filteredProducts = useFilterProducts(products);
 
   useEffect(() => {
     localStorage.setItem("layout", gridLayout ? "grid" : "list");
@@ -52,17 +54,18 @@ const ProductList = () => {
 
           <div className={gridLayout ? "grid grid-cols-1 md:grid-cols-2 gap-4 my-6" : "space-y-6 my-6"}
           >
-            {products && products.map(product => (
-              gridLayout
-                ? <ProductGridItem
-                  productId={product._id}
-                  key={product._id}
-                />
-                : <ProductListItem
-                  productId={product._id}
-                  key={product._id}
-                />
-            ))}
+            {products &&
+              filteredProducts.map(product => (
+                gridLayout
+                  ? <ProductGridItem
+                    productId={product._id}
+                    key={product._id}
+                  />
+                  : <ProductListItem
+                    productId={product._id}
+                    key={product._id}
+                  />
+              ))}
           </div>
         </div>
       </section>

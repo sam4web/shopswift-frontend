@@ -10,13 +10,15 @@ import { useEffect, useState } from "react";
 import { fetchProductsByUser } from "@/features/auth/authThunks.js";
 import { toast } from "react-toastify";
 import Spinner from "@/components/common/Spinner.jsx";
+import useFilterProducts from "@/hooks/useFilterProducts.js";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const logout = useLogout();
   const user = useSelector(selectUser);
-  const products = useSelector(selectProductsByUser);
   const [loading, setLoading] = useState(true);
+  const products = useSelector(selectProductsByUser);
+  const filteredProducts = useFilterProducts(products);
 
   useTitle(`Hello ${user.username} | ShopSwift`);
 
@@ -98,7 +100,7 @@ const Profile = () => {
             </div>
             : <div className="space-y-6">
               {products &&
-                products.map(product => (
+                filteredProducts.map(product => (
                   <ProductListItem
                     productId={product._id}
                     key={product._id}

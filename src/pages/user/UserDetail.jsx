@@ -10,6 +10,7 @@ import { clearUserState, selectUserById, selectUserProducts } from "@/features/u
 import { fetchUserById, fetchUserProducts } from "@/features/user/userThunks.js";
 import NotFound from "@/pages/site/NotFound.jsx";
 import { toast } from "react-toastify";
+import useFilterProducts from "@/hooks/useFilterProducts.js";
 
 const UserDetail = () => {
 
@@ -19,6 +20,7 @@ const UserDetail = () => {
 
   const user = useSelector(selectUserById);
   const products = useSelector(selectUserProducts);
+  const filteredProducts = useFilterProducts(products);
 
   useTitle(`About ${user?.username || "Profile"} | ShopSwift`);
 
@@ -91,7 +93,7 @@ const UserDetail = () => {
 
           <div className="space-y-6">
             {products &&
-              products.map(product => (
+              filteredProducts.map(product => (
                 <ProductListItem
                   productId={product._id}
                   key={product._id}

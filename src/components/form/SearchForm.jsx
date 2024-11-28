@@ -1,24 +1,37 @@
 import { CATEGORIES } from "@/constants/index.js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { clearSearchFilters, selectSearchFilters, setSearchFilters } from "@/features/search/searchSlice.js";
 
 const SearchForm = () => {
-
-  const [formData, setFormData] = useState(null);
+  const dispatch = useDispatch();
+  const filters = useSelector(selectSearchFilters);
+  const [formData, setFormData] = useState(filters || null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleReset = () => {
+    dispatch(clearSearchFilters());
+    setFormData(null);
+  };
+
   const handleSubmit = (e) => {
-    console.log(formData);
+    dispatch(setSearchFilters(formData));
     e.preventDefault();
   };
+
+  useEffect(() => {
+    return () => dispatch(clearSearchFilters());
+  }, [dispatch]);
 
   return (
     <form
       className="px-3 py-5 lg:px-5 lg:py-7 bg-light dark:bg-dark-primary shadow-md rounded-xl space-y-3 sm:space-y-7"
       onSubmit={handleSubmit}
+      onReset={handleReset}
     >
       <div className="md:space-y-7 grid grid-cols-1 sm:grid-cols-3 gap-3 md:block justify-between items-center">
         <div>
@@ -54,10 +67,10 @@ const SearchForm = () => {
         <div>
           <label htmlFor="sort" className="input-label"> Sort By </label>
           <select name="sort" id="sort" className="input-field-sm" onChange={handleChange}>
-            <option value="low">Price (Lowest)</option>
-            <option value="high">Price (Highest)</option>
-            <option value="order">Name (A - Z)</option>
-            <option value="reverse">Name (Z - A)</option>
+            <option value="priceAsc">Price (Lowest)</option>
+            <option value="priceDesc">Price (Highest)</option>
+            <option value="nameAsc">Name (A - Z)</option>
+            <option value="nameDesc">Name (Z - A)</option>
           </select>
         </div>
       </div>
@@ -72,7 +85,7 @@ const SearchForm = () => {
               name="min"
               id="min"
               placeholder="Min"
-              min="0"
+              min={0}
               onChange={handleChange}
               value={formData?.min || ""} />
             <input
@@ -81,7 +94,7 @@ const SearchForm = () => {
               name="max"
               id="max"
               placeholder="Max"
-              min="0"
+              min={0}
               onChange={handleChange}
               value={formData?.max || ""}
             />

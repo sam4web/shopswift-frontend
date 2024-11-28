@@ -35,10 +35,8 @@ const authSlice = createSlice({
 });
 
 
-export const selectToken = (state) => state.auth.token;
 export const selectUser = (state) => state.auth.user;
-export const selectProductsByUser = (state) =>
-  [...state.auth.products].sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+export const selectProductsByUser = (state) => state.auth.products;
 export const isUserAuthenticated = (state) => [state.auth.token, state.auth.user].every(Boolean);
 
 export default authSlice.reducer;
