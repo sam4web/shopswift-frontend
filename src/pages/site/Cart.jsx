@@ -36,7 +36,7 @@ const Cart = () => {
           <h3
             className="text-2xl lg:text-3xl dark:text-light text-gray font-medium transition"
           >
-            {itemExists ? "Shopping Cart" : "Your cart is empty"}
+            {itemExists ? "Shopping Cart" : "Your cart is empty."}
           </h3>
         </section>
         <hr className="line-break" />

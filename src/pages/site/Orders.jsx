@@ -33,7 +33,7 @@ const Orders = () => {
             className="text-2xl lg:text-3xl dark:text-light text-gray font-medium transition"
           >
             <span>
-              {orderExists ? "Your orders" : "You cart is empty"}
+              {orderExists ? "Your orders" : "Your cart is empty."}
             </span>
           </h3>
           {orderExists &&
@@ -44,7 +44,6 @@ const Orders = () => {
         </section>
         <hr className="line-break" />
 
-        {/*{% if user is authenticated & order exists %}*/}
         <section>
           <div className="relative overflow-x-auto rounded-lg">
             {orderExists &&

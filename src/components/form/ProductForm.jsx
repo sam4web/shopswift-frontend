@@ -93,12 +93,12 @@ const ProductForm = ({ create, handleSubmit, initialData }) => {
       <div className="field-wrapper">
         <label htmlFor="image">Image</label>
         {!create && (
-          <>
+          <span className="text-dark-primary dark:text-light">
             <span className="pl-2">
               Currently: <a href="/">{initialData?.image.name}</a>
             </span>
             <p>Change:</p>
-          </>
+          </span>
         )}
         <input
           type="file"
