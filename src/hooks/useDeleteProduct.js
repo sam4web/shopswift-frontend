@@ -7,11 +7,11 @@ const useDeleteProduct = (productId) => {
 
   return async () => {
     try {
-      toast.info("Deleting product, please wait.");
+      const toastId = toast.info("Deleting product, please wait.");
       await dispatch(deleteProductRequest(productId)).unwrap();
+      toast.dismiss(toastId);
       toast.success("Product deleted successfully.");
     } catch (err) {
-      console.log(err);
       toast.error(err);
     }
   };

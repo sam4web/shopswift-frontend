@@ -7,12 +7,12 @@ const useRemoveFromCart = (productId) => {
 
   return async () => {
     try {
-      toast.info("Removing item from cart, please wait...");
+      const toastId = toast.info("Removing item from cart, please wait...");
       await dispatch(sendRemoveFromCartRequest(productId));
       await dispatch(fetchPricingDetail()).unwrap();
+      toast.dismiss(toastId);
       toast.success("Item removed from your cart successfully.");
     } catch (err) {
-      console.log(err);
       toast.error(err);
     }
   };

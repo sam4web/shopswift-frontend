@@ -15,8 +15,9 @@ const ProductCreate = () => {
 
   const handleSubmit = async (productData) => {
     try {
-      toast.info("Creating product, please wait.");
+      const toastId = toast.info("Creating product, please wait.");
       const product = await dispatch(createProductEntry(productData)).unwrap();
+      toast.dismiss(toastId);
       toast.success("Product created successfully.");
       navigate(`/products/${product._id}`);
     } catch (err) {

@@ -39,8 +39,9 @@ const Checkout = () => {
     if (!validateForm()) return;
 
     try {
-      toast.info("Placing your order, please wait...");
+      const toastId = toast.info("Placing your order, please wait...");
       await dispatch(sendPlaceOrderRequest(formData)).unwrap();
+      toast.dismiss(toastId);
       toast.success("Your order has been successfully placed.");
       navigate("/orders");
     } catch (err) {

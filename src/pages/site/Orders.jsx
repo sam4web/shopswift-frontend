@@ -16,9 +16,10 @@ const Orders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
+        const toastId = toast.info("Fetching orders, please wait...");
         await dispatch(fetchOrderQuery()).unwrap();
+        toast.dismiss(toastId);
       } catch (err) {
-        console.log(err);
         toast.error(err);
       }
     };

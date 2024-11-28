@@ -11,10 +11,11 @@ const useLogout = () => {
 
   return async () => {
     try {
-      toast.info("Logging out, please wait...");
+      const toastId = toast.info("Logging out, please wait...");
       await dispatch(sendLogoutRequest()).unwrap();
       dispatch(emptyCart());
       dispatch(emptyOrders());
+      toast.dismiss(toastId);
       toast.success("You have been logged out successfully.");
       navigate("/login", { replace: true });
     } catch (err) {

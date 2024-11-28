@@ -30,8 +30,9 @@ const ProductDetail = () => {
     }
 
     try {
-      toast.info("Adding item to cart, please wait...");
+      const toastId = toast.info("Adding item to cart, please wait...");
       await dispatch(sendAddToCartRequest(productId)).unwrap();
+      toast.dismiss(toastId);
       toast.success("Item successfully added to your cart.");
       return navigate("/cart");
     } catch (err) {

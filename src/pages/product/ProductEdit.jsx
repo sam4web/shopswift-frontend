@@ -32,8 +32,9 @@ const ProductEdit = () => {
 
   const handleSubmit = async (productData) => {
     try {
-      toast.info("Updating product, please wait.");
+      const toastId = toast.info("Updating product, please wait...");
       await dispatch(updateProductRecord({ data: productData, id: productId })).unwrap();
+      toast.dismiss(toastId);
       toast.success("Product updated successfully.");
       navigate(`/products/${productId}`);
     } catch (err) {

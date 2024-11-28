@@ -13,14 +13,15 @@ const PrefetchProducts = () => {
     const fetchProducts = async () => {
       let toastId;
       try {
-        toastId = toast.info("Fetching products, Please wait..");
+        toastId = toast.info("Fetching products, Please wait..", { autoClose: false });
         await dispatch(fetchProductsQuery()).unwrap();
+        toast.dismiss(toastId);
       } catch (err) {
         toast.dismiss();
         toast.error(err);
       } finally {
+        toast.dismiss();
         setLoading(false);
-        toast.dismiss(toastId);
       }
     };
     fetchProducts();

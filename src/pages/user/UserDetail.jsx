@@ -9,12 +9,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearUserState, selectUserById, selectUserProducts } from "@/features/user/userSlice.js";
 import { fetchUserById, fetchUserProducts } from "@/features/user/userThunks.js";
 import NotFound from "@/pages/site/NotFound.jsx";
+import { toast } from "react-toastify";
 
 const UserDetail = () => {
 
   const { userId } = useParams();
   const [loading, setLoading] = useState(true);
-  const [errors, setErrors] = useState();
   const dispatch = useDispatch();
 
   const user = useSelector(selectUserById);
@@ -25,10 +25,12 @@ const UserDetail = () => {
   useEffect(() => {
     const fetchUserAndProducts = async () => {
       try {
+        const toastId = toast.info("Fetching user details, please wait...");
         await dispatch(fetchUserById(userId)).unwrap();
         await dispatch(fetchUserProducts(userId)).unwrap();
+        toast.dismiss(toastId);
       } catch (err) {
-        console.log(err);
+        toast.error(err);
       } finally {
         setLoading(false);
       }

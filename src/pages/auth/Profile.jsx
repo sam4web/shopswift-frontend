@@ -6,20 +6,32 @@ import { selectProductsByUser, selectUser } from "@/features/auth/authSlice.js";
 import formatDate from "@/utils/formatDate.js";
 import ProductListItem from "@/components/product/ProductListItem.jsx";
 import useLogout from "@/hooks/useLogout.js";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchProductsByUser } from "@/features/auth/authThunks.js";
+import { toast } from "react-toastify";
+import Spinner from "@/components/common/Spinner.jsx";
 
 const Profile = () => {
-  const user = useSelector(selectUser);
   const dispatch = useDispatch();
-  const products = useSelector(selectProductsByUser);
   const logout = useLogout();
+  const user = useSelector(selectUser);
+  const products = useSelector(selectProductsByUser);
+  const [loading, setLoading] = useState(true);
 
   useTitle(`Hello ${user.username} | ShopSwift`);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      await dispatch(fetchProductsByUser()).unwrap();
+      try {
+        const toastId = toast.info("Fetching product, please wait...");
+        await dispatch(fetchProductsByUser()).unwrap();
+        toast.dismiss(toastId);
+      } catch (err) {
+        toast.error(err);
+      } finally {
+        setLoading(false);
+      }
+
     };
     fetchProducts();
   }, [dispatch]);
@@ -67,7 +79,7 @@ const Profile = () => {
           </div>
         </aside>
 
-        <section className="col-span-2">
+        <section className="col-span-2 flex flex-col h-full">
           <div className="flex justify-between flex-wrap items-center gap-x-4">
             <h3
               className="text-2xl lg:text-3xl dark:text-light text-gray font-medium transition"
@@ -80,17 +92,22 @@ const Profile = () => {
           </div>
           <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700" />
 
-          <div className="space-y-6">
-            {products &&
-              products.map(product => (
-                <ProductListItem
-                  productId={product._id}
-                  key={product._id}
-                  self
-                />
-              ))
-            }
-          </div>
+          {loading
+            ? <div className="flex flex-1">
+              <Spinner />
+            </div>
+            : <div className="space-y-6">
+              {products &&
+                products.map(product => (
+                  <ProductListItem
+                    productId={product._id}
+                    key={product._id}
+                    self
+                  />
+                ))
+              }
+            </div>
+          }
         </section>
       </div>
     </div>
