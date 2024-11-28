@@ -89,7 +89,7 @@ const Profile = () => {
               My Products
             </h3>
             <p className="text-lg text-gray dark:text-light">
-              Total products: {products.length}
+              Total products: {filteredProducts.length}
             </p>
           </div>
           <hr className="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700" />

@@ -30,7 +30,7 @@ const ProductList = () => {
         <div>
           <div className="flex justify-between items-center">
             <p className="text-lg dark:text-light">
-              {products.length} Products Found
+              {filteredProducts.length} Products Found
             </p>
 
             <div className="space-x-1.5">
