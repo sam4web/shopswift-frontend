@@ -4,10 +4,9 @@ import { selectSearchFilters } from "@/features/search/searchSlice.js";
 const useFilterProducts = (products) => {
   const filters = useSelector(selectSearchFilters);
   const { sort } = filters;
-
   return products
     .filter((product) => {
-      const matchesName = filters.name ? product.name.toLowerCase().includes(filters.name) : true;
+      const matchesName = filters.name ? product.name.toLowerCase().includes(filters.name.toLowerCase().trim()) : true;
       const matchesMinPrice = filters.min ? product.price >= filters.min : true;
       const matchesMaxPrice = filters.max ? product.price <= filters.max : true;
       const matchesCategory = filters.category ? product.category === filters.category : true;

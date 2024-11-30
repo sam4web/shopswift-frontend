@@ -1,10 +1,10 @@
 import TopNav from "@/components/header/TopNav.jsx";
 import { useState } from "react";
 import Logo from "@/components/header/Logo.jsx";
-import NavLinks from "@/components/header/NavLinks.jsx";
+import NavList from "@/components/header/NavList.jsx";
 import Sidenav from "@/components/header/Sidenav.jsx";
 import { LuShoppingCart, LuUserCircle2 } from "react-icons/lu";
-import { FaBars } from "react-icons/fa6";
+import { FaBars, FaXmark } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
 import ThemeToggle from "@/components/header/ThemeToggle.jsx";
 
@@ -20,9 +20,12 @@ const Header = () => {
         <div className="max-w-7xl w-full mx-auto px-4 lg:px-10 py-4">
           <div className="flex justify-between items-center">
             <Logo />
-            <NavLinks />
+            <NavList />
             <button className="block md:hidden" onClick={toggleSidenav}>
-              <FaBars className="dark:text-light size-6" />
+              {showSidenav
+                ? <FaXmark className="dark:text-light size-6" />
+                : <FaBars className="dark:text-light size-6" />
+              }
             </button>
 
             <div className="flex items-center gap-3.5">

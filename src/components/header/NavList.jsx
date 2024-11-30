@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { isUserAuthenticated } from "@/features/auth/authSlice.js";
 
-const NavLinks = () => {
+const NavList = () => {
   const isAuthenticated = useSelector(isUserAuthenticated);
 
   return (
@@ -27,4 +27,4 @@ const NavLinks = () => {
   );
 };
 
-export default NavLinks;
+export default NavList;
